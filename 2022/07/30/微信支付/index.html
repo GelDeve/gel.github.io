@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="开发前准备1.在微信支付中申请商户号 2.在微信共众平台申请小程序完善相关信息并且关联对应商户号 3.在微信支付中登陆申请api证书,设置api v3密钥 业务流程 开发流程uniapp(小程序端)微信api文档  测试页面如上，通过按钮来绑定点击事件调起支付，首先我们通过微信的api拿取到用户的openid，在支付接口中往后端传递， 想要拿到用户的openid需要先拿到用户的code，调用该ap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信支付">
+<meta property="og:url" content="https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/index.html">
+<meta property="og:site_name" content="record code">
+<meta property="og:description" content="开发前准备1.在微信支付中申请商户号 2.在微信共众平台申请小程序完善相关信息并且关联对应商户号 3.在微信支付中登陆申请api证书,设置api v3密钥 业务流程 开发流程uniapp(小程序端)微信api文档  测试页面如上，通过按钮来绑定点击事件调起支付，首先我们通过微信的api拿取到用户的openid，在支付接口中往后端传递， 想要拿到用户的openid需要先拿到用户的code，调用该ap">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142721667.png">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142824158.png">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142844733.png">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142918175.png">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142937308.png">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730143041700.png">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730143111700.png">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730143603065.png">
+<meta property="article:published_time" content="2022-07-30T06:25:18.000Z">
+<meta property="article:modified_time" content="2022-07-30T06:38:24.673Z">
+<meta property="article:author" content="阿志">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://round666.github.io/pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142721667.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>微信支付</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/07/28/%E8%A7%A3%E5%86%B3hexo%E5%8F%91%E5%B8%83%E6%96%87%E7%AB%A0%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87%E4%B8%8D%E6%AD%A3%E5%B8%B8%E9%97%AE%E9%A2%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&text=微信支付"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&is_video=false&description=微信支付"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=微信支付&body=Check out this article: https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&name=微信支付&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&t=微信支付"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E5%89%8D%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">开发前准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">业务流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">开发流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#uniapp-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%AB%AF"><span class="toc-number">3.1.</span> <span class="toc-text">uniapp(小程序端)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#express-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">4.</span> <span class="toc-text">express(服务端)</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        微信支付
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿志</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-07-30T06:25:18.000Z" itemprop="datePublished">2022-07-30</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="开发前准备"><a href="#开发前准备" class="headerlink" title="开发前准备"></a><strong>开发前准备</strong></h3><p>1.在微信支付中申请商户号</p>
+<p>2.在微信共众平台申请小程序完善相关信息并且关联对应商户号</p>
+<p>3.在微信支付中登陆申请api证书,设置api v3密钥</p>
+<h3 id="业务流程"><a href="#业务流程" class="headerlink" title="业务流程"></a><strong>业务流程</strong></h3><p><img src="/../pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142721667.png" alt="image-20220730142721667"></p>
+<h3 id="开发流程"><a href="#开发流程" class="headerlink" title="开发流程"></a><strong>开发流程</strong></h3><h4 id="uniapp-小程序端"><a href="#uniapp-小程序端" class="headerlink" title="uniapp(小程序端)"></a><strong>uniapp(小程序端)</strong></h4><p><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/api/payment/wx.requestPluginPayment.html">微信api文档</a></p>
+<p><img src="/../pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142824158.png" alt="image-20220730142824158"></p>
+<p>测试页面如上，通过按钮来绑定点击事件调起支付，首先我们通过微信的api拿取到用户的openid，在支付接口中往后端传递，</p>
+<p>想要拿到用户的openid需要先拿到用户的code，调用该api微信服务器返回用户code</p>
+<p><img src="/../pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142844733.png" alt="image-20220730142844733"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">成功获取到用户的code再请求下面地址，请求地址前需要拿到小程序的appid和私钥以及刚刚获取到的code以及授权类型(默认)，appid和私钥应该从公众平台拿取到后存储到服务端，由服务端发起请求拿到openid</span><br><span class="line">由于为测试demo，未正式发布这里放在小程序端进行请求获取到</span><br><span class="line"><span class="variable constant_">GET</span> <span class="attr">https</span>:<span class="comment">//api.weixin.qq.com/sns/jscode2session?appid=APPID&amp;secret=SECRET&amp;js_code=JSCODE&amp;grant_type=authorization_code</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142918175.png" alt="image-20220730142918175"></p>
+<p>成功拿到用户的openid时，将用户的openid传入到服务端，服务端进行处理拿到预下单id，根据wx.requestPayment所需参数，一并将所需参数返回给小程序端</p>
+<p><img src="/../pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730142937308.png" alt="image-20220730142937308"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//wx.login 拿到用户code</span></span><br><span class="line">wx.<span class="title function_">login</span>(&#123;</span><br><span class="line">	<span class="attr">success</span>:<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">               <span class="comment">//成功拿到用户code获取用户openid                  </span></span><br><span class="line">		wx.<span class="title function_">request</span>(&#123;</span><br><span class="line">			<span class="attr">url</span>:<span class="string">&quot;https://api.weixin.qq.com/sns/jscode2session?appid=APPID&amp;secret=SECRET&amp;js_code=JSCODE&amp;grant_type=authorization_code&quot;</span>,</span><br><span class="line">			<span class="attr">data</span>:&#123;</span><br><span class="line">			    <span class="attr">appid</span>:<span class="string">&#x27;xxxxxxx&#x27;</span>,</span><br><span class="line">			    <span class="attr">secret</span>:<span class="string">&#x27;xxxxxxxx&#x27;</span>,</span><br><span class="line">			    <span class="attr">js_code</span>:res.<span class="property">code</span>,</span><br><span class="line">			    <span class="attr">grant_type</span>:<span class="string">&#x27;authorization_code&#x27;</span></span><br><span class="line">			&#125;,</span><br><span class="line">                        <span class="comment">// 拿到用户openid传到服务端接口                           </span></span><br><span class="line">			<span class="attr">success</span>:<span class="function"><span class="params">val</span>=&gt;</span>&#123;</span><br><span class="line">			    wx.<span class="title function_">request</span>(&#123;</span><br><span class="line">				<span class="attr">url</span>:<span class="string">&#x27;服务端地址&#x27;</span>,</span><br><span class="line">				<span class="attr">data</span>:&#123;</span><br><span class="line">					<span class="attr">openid</span>:val.<span class="property">data</span>.<span class="property">openid</span></span><br><span class="line">				&#125;,</span><br><span class="line">                                <span class="comment">// 请求成功 服务端返回预下单id、时间戳、随机字符串、签名 根据参数通过wx.requestPayment调起微信支付</span></span><br><span class="line">				<span class="attr">success</span>:<span class="function">(<span class="params">result</span>)=&gt;</span>&#123;</span><br><span class="line">					<span class="keyword">if</span>(result.<span class="property">data</span>.<span class="property">errCode</span>)&#123;</span><br><span class="line">					    uni.<span class="title function_">hideLoading</span>()</span><br><span class="line">					    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;err&#x27;</span>)</span><br><span class="line">				        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">					    uni.<span class="title function_">hideLoading</span>()</span><br><span class="line">					    wx.<span class="title function_">requestPayment</span>(&#123;</span><br><span class="line">						<span class="attr">timeStamp</span>:result.<span class="property">data</span>.<span class="property">timeStamp</span>,</span><br><span class="line">						<span class="attr">nonceStr</span>:result.<span class="property">data</span>.<span class="property">nonceStr</span>,</span><br><span class="line">						<span class="attr">package</span>:<span class="string">&quot;prepay_id=&quot;</span>+result.<span class="property">data</span>.<span class="property">package</span>,</span><br><span class="line">						<span class="attr">paySign</span>:result.<span class="property">data</span>.<span class="property">paySign</span>,</span><br><span class="line">						<span class="attr">signType</span>:<span class="string">&#x27;RSA&#x27;</span>,</span><br><span class="line">						<span class="attr">success</span>:<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">							<span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">						&#125;,</span><br><span class="line">						<span class="attr">fail</span>:<span class="function"><span class="params">err</span>=&gt;</span>&#123;</span><br><span class="line">							<span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line">						&#125;</span><br><span class="line">					&#125;)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="express-服务端"><a href="#express-服务端" class="headerlink" title="express(服务端)"></a><strong>express(服务端)</strong></h3><p>根据业务流程、首先需要通过下单拿到用户下单时预下单的id，而在官方文档中提供的sdk仅提供了java、php、go三种版本、并未提供node版本的sdk开发包、而发起请求时需要对请求进行签名、接收微信服务器的回调时需要</p>
+<p>对回调信息进行验签从而判断是否为微信服务器发来的回调、而不是恶意攻击。由于没有官方提供的node版本sdk、这里基于自己开发对请求签名进行对微信请求</p>
+<p><img src="/../pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730143041700.png" alt="image-20220730143041700"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">拿到预下单id通过请求URL:</span><br><span class="line">POST https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi</span><br><span class="line">该地址我们需要提供以下参数</span><br><span class="line">&#123;</span><br><span class="line">	&quot;mchid&quot;: &quot;1900006XXX&quot;,                            // 商户id</span><br><span class="line">	&quot;out_trade_no&quot;: &quot;1217752501201407033233368318&quot;,   // 商户订单内部订单号(服务端生成并且唯一)</span><br><span class="line">	&quot;appid&quot;: &quot;wxdace645e0bc2cXXX&quot;,                    // 小程序appid</span><br><span class="line">	&quot;description&quot;: &quot;Image形象店-深圳腾大-QQ公仔&quot;,      // 描述(随意填写)</span><br><span class="line">	&quot;notify_url&quot;: &quot;https://weixin.qq.com/&quot;,          // 通知地址(这里随意填写仅作为测试)</span><br><span class="line">	&quot;amount&quot;: &#123;</span><br><span class="line">		&quot;total&quot;: 1,                              // 金额单位为分</span><br><span class="line">		&quot;currency&quot;: &quot;CNY&quot;                        // 结算币种</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;payer&quot;: &#123;</span><br><span class="line">		&quot;openid&quot;: &quot;o4GgauInH_RCEdvrrNGrntXDuXXX&quot;// 用户openid</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请求该接口之前需要对服务端请求做处理，需要对请求进行签名在请求头加上指定参数</p>
+<p><img src="/../pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730143111700.png" alt="image-20220730143111700"></p>
+<p><strong>签名生成第一步需要生成签名串</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">签名串一共有五行，每一行为一个参数。行尾以 \n（换行符，<span class="variable constant_">ASCII</span>编码值为<span class="number">0x0A</span>）结束，包括最后一行。如果参数本身以\n结束，也需要附加一个\n。</span><br><span class="line"></span><br><span class="line"><span class="variable constant_">HTTP</span>请求方法\n      <span class="comment">// 根据请求的URL 是GET请求填写GET  是POST填写POST</span></span><br><span class="line"><span class="variable constant_">URL</span>\n              <span class="comment">// 截取请求URL除了域名部分的地址  例如请求预下单id地址为https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi  这里填写/v3/pay/transactions/jsapi</span></span><br><span class="line">请求时间戳\n        <span class="comment">// 时间戳微信支付会拒绝处理很久之前发起的请求 需要确保服务端时间的准确</span></span><br><span class="line">请求随机串\n        <span class="comment">// 请求随机串随机生成32位</span></span><br><span class="line">求报文主体\n        <span class="comment">// 如果请求方法为GET这里直接一个换行符、如果为POST请求这里填写请求URL所需参数放入这里</span></span><br><span class="line">使用商户私钥对待签名串进行<span class="title class_">SHA256</span> <span class="keyword">with</span> <span class="variable constant_">RSA</span>签名，并对签名结果进行<span class="title class_">Base64</span>编码得到签名值</span><br><span class="line">私钥就是证书下载中apiclient_key.<span class="property">pem</span>文件</span><br><span class="line">签名后得出的密钥大概长这样</span><br><span class="line">uOVRnA4qG/<span class="title class_">MNnYzdQxJanN</span>+zU+lTgIcnU9BxGw5dKjK+<span class="title class_">VdEUz2FeIoC</span>+D5sB/<span class="variable constant_">LN</span>+nGzX3hfZg6r5wT1pl2ZobmIc6p0ldN7J6yDgUzbX8Uk3sD4a</span><br><span class="line">4eZVPTBvqNDoUqcYMlZ9uuDdCvNv4TM3c1WzsXUrExwVkI1XO5jCNbgDJ25nkT/c1gIFvqoogl7MdSFGc4W4xZsqCItnqbypR3RuGIlR9h9vlRsy</span><br><span class="line">7zJR9PBI83X8alLDIfR1ukt1P7tMnmogZ0cuDY8cZsd8ZlCgLadmvej58SLsIkVxFJ8XyUgx9FmutKSYTmYtWBZ0+tNvfGmbXU7cob8H/4nLBiCwIUFluw==</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/download/Product_5.zip">验证自身加密方法有无错误可以使用官方提供的签名工具</a></p>
+<p><strong>第二步将签名加入到请求头发起请求</strong></p>
+<p>微信支付商户API v3要求请求通过，HTTP Authorization头来传递签名。Authorization由<strong>认证类型</strong>和<strong>签名信息</strong>两个部分组成。</p>
+<p>具体组成为：</p>
+<p>1.认证类型，目前为WECHATPAY2-SHA256-RSA2048</p>
+<p>2.签名信息</p>
+<ul>
+<li>发起请求的商户（包括直连商户、服务商或渠道商）的商户号 mchid</li>
+<li>商户API证书序列号serial_no，用于声明所使用的证书</li>
+<li>请求随机串nonce_str</li>
+<li>时间戳timestamp</li>
+<li>签名值signature</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Authorization</span>: <span class="title class_">WECHATPAY2</span>-<span class="title class_">SHA256</span>-<span class="title class_">RSA2048</span> mchid=<span class="string">&quot;1900009191&quot;</span>,            <span class="comment">// 认证信息</span></span><br><span class="line">nonce_str=<span class="string">&quot;593BEC0C930BF1AFEB40B4A08C8FB242&quot;</span>,                           <span class="comment">// 随机字符串 这里传入与签名串一样的字符串</span></span><br><span class="line">signature=<span class="string">&quot;uOVRnA4qG/MNnYzdQxJanN+zU+lTgIcnU9BxGw5dKjK+VdEUz2FeIoC+D5sB/LN+nGzX3hfZg6r5wT1pl2ZobmIc6p0ldN7J6yDgUzbX8Uk3sD4a4eZVPTBvqNDoUqcYMlZ9uuDdCvNv4TM3c1WzsXUrExwVkI1XO5jCNbgDJ25nkT/</span></span><br><span class="line"><span class="string">c1gIFvqoogl7MdSFGc4W4xZsqCItnqbypR3RuGIlR9h9vlRsy7zJR9PBI83X8alLDIfR1ukt1P7tMnmogZ0cuDY8cZsd8ZlCgLadmvej58SLsIkVxFJ8XyUgx9FmutKSYTmYtWBZ0+tNvfGmbXU7cob8H/4nLBiCwIUFluw==&quot;</span>,    <span class="comment">// 签名</span></span><br><span class="line">timestamp=<span class="string">&quot;1554208460&quot;</span>,                                                 <span class="comment">// 时间戳 同随机字符串一样传入签名一样的时间戳</span></span><br><span class="line">serial_no=<span class="string">&quot;1DDE55AD98ED71D6EDD4A4A16996DE7B47773A8C&quot;</span>                    <span class="comment">// 证书序列号</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>第三步成功请求</strong>，该地址返回预下单id，再返回小程序端所需的参数</p>
+<p><img src="/../pic/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/image-20220730143603065.png" alt="image-20220730143603065"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">wx.requestPayment</span><br><span class="line">(</span><br><span class="line">	&#123;</span><br><span class="line">		&quot;timeStamp&quot;: &quot;1414561699&quot;,                            // 这里也传入签名一致的时间戳</span><br><span class="line">		&quot;nonceStr&quot;: &quot;5K8264ILTKCH16CQ2502SI8ZNMTM67VS&quot;,       // 同上</span><br><span class="line">		&quot;package&quot;: &quot;prepay_id=wx201410272009395522657a690389285100&quot;,    // 预下单id</span><br><span class="line">		&quot;signType&quot;: &quot;RSA&quot;,                                    // 加密方式 v3支付默认填写rsa</span><br><span class="line">		&quot;paySign&quot;: &quot;oR9d8PuhnIc+YZ8cBHFCwfgpaK9gd7vaRvkYD7rthRAZ\/X+QBhcCYL21N7cHCTUxbQ+EAt6Uy+lwSN22f5YZvI45MLko8Pfso0jm46v5hqcVwrk6uddkGuT+Cdvu4WBqDzaDjnNa5UK3GfE1Wfl2gHxIIY5lLdUgWFts17D4WuolLLkiFZV+JSHMvH7eaLdT9N5GBovBwu5yYKUR7skR8Fu+LozcSqQixnlEZUfyE55feLOQTUYzLmR9pNtPbPsu6WVhbNHMS3Ss2+AehHvz+n64GDmXxbX++IOBvm2olHu3PsOUGRwhudhVf7UcGcunXt8cqNjKNqZLhLw4jq\/xDg==&quot;,</span><br><span class="line">                 // 签名</span><br><span class="line">		&quot;success&quot;:function(res)&#123;&#125;,</span><br><span class="line">		&quot;fail&quot;:function(res)&#123;&#125;,</span><br><span class="line">		&quot;complete&quot;:function(res)&#123;&#125;</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//该接口签名与刚刚预下单的签加密参数不一致方法一致</span></span><br><span class="line">签名串一共有四行，每一行为一个参数。行尾以\n（换行符，<span class="variable constant_">ASCII</span>编码值为<span class="number">0x0A</span>）结束，包括最后一行。如果参数本身以\n结束，也需要附加一个\n</span><br><span class="line">wx8888888888888888                                                      <span class="comment">// 小程序appId  </span></span><br><span class="line"><span class="number">1414561699</span>                                                              <span class="comment">// 时间戳        与预下单的签名时间戳一致</span></span><br><span class="line">5K8264ILTKCH16CQ2502SI8ZNMTM67VS                                        <span class="comment">// 随机字符串     同上</span></span><br><span class="line">prepay_id=wx201410272009395522657a690389285100                          <span class="comment">// 订单详情扩展字符串</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 签名实现流程</span></span><br><span class="line">npm install wechatpay-axios-plugin  <span class="comment">// 使用该库获取时间戳 随机字符串 也可以自己生成</span></span><br><span class="line">npm install node-snowflake          <span class="comment">// 使用该库生成唯一订单号</span></span><br><span class="line">npm install axios                    <span class="comment">// 使用该库发起网络请求</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> &#123;<span class="title class_">Formatter</span>&#125; = <span class="built_in">require</span>(<span class="string">&#x27;wechatpay-axios-plugin&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> snowflake = <span class="built_in">require</span>(<span class="string">&#x27;node-snowflake&#x27;</span>).<span class="property">Snowflake</span></span><br><span class="line"><span class="keyword">const</span> readyOrder = <span class="string">&#x27;https://api.mch.weixin.qq.com/v3/pay/transactions/jsapi&#x27;</span></span><br><span class="line"><span class="comment">// 时间戳</span></span><br><span class="line"><span class="keyword">const</span> timeStamp = <span class="title class_">Formatter</span>.<span class="title function_">timestamp</span>()</span><br><span class="line"> <span class="comment">// 随机字符串</span></span><br><span class="line"> <span class="keyword">const</span> nonceStr = <span class="title class_">Formatter</span>.<span class="title function_">nonce</span>()</span><br><span class="line"> <span class="comment">// 用户id</span></span><br><span class="line"> <span class="keyword">const</span> userOpenId = 用户openid</span><br><span class="line"> <span class="comment">// 订单号</span></span><br><span class="line"> <span class="keyword">const</span> orderNum = <span class="title function_">createOrderCode</span>()</span><br><span class="line"> <span class="comment">// 传递下单参数</span></span><br><span class="line"> <span class="keyword">const</span> sendParams = &#123;</span><br><span class="line">      <span class="string">&quot;appid&quot;</span>: 小程序appid,</span><br><span class="line">      <span class="string">&quot;mchid&quot;</span>: 商户号,</span><br><span class="line">      <span class="string">&quot;out_trade_no&quot;</span>: 订单号,     </span><br><span class="line">      <span class="string">&quot;description&quot;</span>: <span class="string">&#x27;天目测试&#x27;</span>,</span><br><span class="line">      <span class="string">&quot;notify_url&quot;</span>: <span class="string">&#x27;https://www.weixin.qq.com&#x27;</span>,</span><br><span class="line">      <span class="string">&quot;amount&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;total&quot;</span>: <span class="number">1</span>,                 <span class="comment">// 支付金额 单位为分</span></span><br><span class="line">          <span class="string">&quot;currency&quot;</span>: <span class="string">&quot;CNY&quot;</span>           </span><br><span class="line">       &#125;,</span><br><span class="line">      <span class="string">&quot;payer&quot;</span>: &#123;</span><br><span class="line">          <span class="string">&quot;openid&quot;</span>: 用户openid</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 签名</span></span><br><span class="line"><span class="keyword">const</span> sign = <span class="title function_">createSign</span>(<span class="title function_">joinLine</span>(<span class="string">&#x27;POST&#x27;</span>, <span class="string">&#x27;/v3/pay/transactions/jsapi&#x27;</span>, timeStamp, nonceStr, <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(sendParams)))</span><br><span class="line"></span><br><span class="line"><span class="comment">// 雪花算法生成唯一订单号</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">createOrderCode</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> snowflake.<span class="title function_">nextId</span>().<span class="title function_">toString</span>()</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 签名生成</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">createSign</span>(<span class="params">signStr</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> cert = fs.<span class="title function_">readFileSync</span>(<span class="string">&quot;私钥路径&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> sign = crypto.<span class="title function_">createSign</span>(<span class="string">&quot;RSA-SHA256&quot;</span>);</span><br><span class="line">    sign.<span class="title function_">update</span>(<span class="title class_">Buffer</span>.<span class="title function_">from</span>(signStr, <span class="string">&#x27;utf-8&#x27;</span>));</span><br><span class="line">    <span class="keyword">return</span> sign.<span class="title function_">sign</span>(cert, <span class="string">&quot;base64&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 字符串拼接换行符</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">joinLine</span>(<span class="params">...args</span>)=&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> args.<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>)+<span class="string">&#x27;\n&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//返回获取预下单id请求头</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">createAuthorization</span>(<span class="params">sign,nonceStr,timeStamp</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;WECHATPAY2-SHA256-RSA2048&quot;</span> + <span class="string">&quot; &quot;</span> +<span class="title function_">parseStr</span>(&#123;</span><br><span class="line">        <span class="attr">mchid</span>: wxInfo.<span class="property">mchid</span>,</span><br><span class="line">        <span class="attr">nonce_str</span>: nonceStr,</span><br><span class="line">        <span class="attr">signature</span>: sign,</span><br><span class="line">        <span class="attr">timestamp</span>: timeStamp,</span><br><span class="line">        <span class="attr">serial_no</span>: wxInfo.<span class="property">serial_no</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 发起请求获取预下单id</span></span><br><span class="line"> <span class="title function_">axios</span>(readyOrder, sendParams, <span class="string">&#x27;Post&#x27;</span>, <span class="title function_">createAuthorization</span>(sign, nonceStr, timeStamp)).<span class="title function_">then</span>(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        res.<span class="title function_">json</span>(</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">timeStamp</span>:timeStamp.<span class="title function_">toString</span>(),</span><br><span class="line">            nonceStr,</span><br><span class="line">            <span class="attr">package</span>: result.<span class="property">prepay_id</span>,</span><br><span class="line">            <span class="attr">paySign</span>: <span class="title function_">createSign</span>(<span class="title function_">joinLine</span>(wxInfo.<span class="property">appid</span>, timeStamp, nonceStr, <span class="string">`prepay_id=<span class="subst">$&#123;result.prepay_id&#125;</span>`</span>))</span><br><span class="line">        &#125;)</span><br><span class="line"> &#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;获取预下单id失败&quot;</span>)</span><br><span class="line">        res.<span class="title function_">json</span>(&#123;</span><br><span class="line">            <span class="attr">errCode</span>:<span class="number">500</span>,</span><br><span class="line">            <span class="attr">msg</span>:<span class="string">&#x27;下单失败&#x27;</span></span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(err)</span><br><span class="line"> &#125;)</span><br><span class="line"> <span class="keyword">function</span> <span class="title function_">axios</span>(<span class="params">url = <span class="string">&#x27;&#x27;</span>, params = &#123;&#125;, type = <span class="string">&#x27;Get&#x27;</span>,headers</span>) &#123;</span><br><span class="line">    <span class="comment">//   Promise是一个对象， 从它可以获取异步操作的消息     </span></span><br><span class="line">    <span class="comment">// 对象的状态不受外界影响 一旦状态改变 就不会在变 状态会被凝固  两种状态  pending-&gt;fulfilled(success) or pending-&gt;rejected(error)</span></span><br><span class="line">    <span class="comment">// async 函数返回的是一个promise对象await关键字只能用在被async修饰的函数中 await表示等待一个promise对象返回结果</span></span><br><span class="line">    <span class="comment">// 所以await后面一般跟着promise对象 如果不是立刻返回结果 await关键字也没什么意义了</span></span><br><span class="line">    <span class="keyword">let</span> promise</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 拼接参数</span></span><br><span class="line">        <span class="keyword">if</span> (type === <span class="string">&#x27;Get&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> str = <span class="string">&#x27;&#x27;</span></span><br><span class="line">            <span class="title class_">Object</span>.<span class="title function_">keys</span>(params).<span class="title function_">forEach</span>(<span class="function">(<span class="params">value, index</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (index + <span class="number">1</span> === <span class="title class_">Object</span>.<span class="title function_">keys</span>(params).<span class="property">length</span>) &#123;</span><br><span class="line">                    str += value + <span class="string">&#x27;=&#x27;</span> + params[value]</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    str += value + <span class="string">&#x27;=&#x27;</span> + params[value] + <span class="string">&#x27;&amp;&#x27;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="comment">// 完整URL</span></span><br><span class="line">            url += <span class="string">&#x27;?&#x27;</span> + str</span><br><span class="line">            <span class="comment">// 发送get请求</span></span><br><span class="line">            <span class="keyword">if</span>(headers)&#123;</span><br><span class="line">                promise = axios.<span class="title function_">get</span>(url,headers)</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                promise = axios.<span class="title function_">get</span>(url)</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type === <span class="string">&#x27;Post&#x27;</span>) &#123;</span><br><span class="line">            <span class="comment">// 发送post请求</span></span><br><span class="line">            <span class="keyword">if</span>(headers)&#123;</span><br><span class="line">                <span class="comment">// 设置请求头  微信支付请求需要带上请求头进行验签</span></span><br><span class="line">                axios.<span class="property">defaults</span>.<span class="property">headers</span>.<span class="property">post</span>[<span class="string">&#x27;Authorization&#x27;</span>] = headers</span><br><span class="line">                promise = axios.<span class="title function_">post</span>(url,params)</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                promise = axios.<span class="title function_">post</span>(url, params)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 返回请求结果</span></span><br><span class="line">        promise.<span class="title function_">then</span>(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(res.<span class="property">data</span>)</span><br><span class="line">        &#125;).<span class="title function_">catch</span>(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;请求失败&#x27;</span>)</span><br><span class="line">            <span class="title function_">reject</span>(error)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>到这里微信调起支付就完成了</p>
+<p>**总结:**总体的业务逻辑也不算复杂，代码实现上也比较简单，多费时间上是微信官方文档对新手不是很友好、踩了很多坑、重点还是对签名要特别注意、一些随机字符串、时间戳需要保持一致、待签名串格式要与文档保持高度一致</p>
+<p>参数的大小写拼写要完全一致.一些签名的失败原因文档也总结出来了</p>
+<p><strong>如何定位“错误的签名，导致验签失败”的错误？</strong></p>
+<p>为了方便开发者定位，我们对于验签失败，会在应答的错误详情detail中加入验签信息。验签信息是我们根据商户的HTTP请求<a target="_blank" rel="noopener" href="https://pay.weixin.qq.com/wiki/doc/apiv3/wechatpay/wechatpay4_0.shtml#part-1">构造签名串</a>的各种信息。</p>
+<ul>
+<li>method，HTTP请求方法</li>
+<li>url，请求的URL</li>
+<li>truncated_sign_message，微信支付验签时使用的签名串（换行符显示成\n）。为了方便查看，我们对最后的请求报文主体做了截断</li>
+<li>sign_message_length，微信支付验签时使用的签名串的<em>字节长度</em></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;code&quot;: &quot;SIGN_ERROR&quot;,</span><br><span class="line">&quot;message&quot;: &quot;错误的签名，验签失败&quot;,</span><br><span class="line">&quot;detail&quot;: &#123;</span><br><span class="line">    &quot;field&quot;: &quot;signature&quot;,</span><br><span class="line">    &quot;issue&quot;: &quot;sign not match&quot;,</span><br><span class="line">    &quot;location&quot;: &quot;authorization&quot;,</span><br><span class="line">    &quot;sign_information&quot;: &#123;</span><br><span class="line">        &quot;method&quot;: &quot;GET&quot;,</span><br><span class="line">        &quot;url&quot;: &quot;/payscore/user-service-state?service_id=500001&amp;appid=wxeaf7bf1de621b0c2&amp;openid=oWm9Z5JQwgV7BKAQUeKsUMVSjTpQ&quot;,</span><br><span class="line">        &quot;truncated_sign_message&quot;: &quot;GET\n/payscore/user-service-state?service_id=500001&amp;appid=wxeaf7bf1de621b0c2&amp;openid=oWm9Z5JQwgV7BKAQUeKsUMVSjTpQ\n1559194069\n18a427e78d2344e1a71156a2690cc4d6\n\n&quot;,</span><br><span class="line">        &quot;sign_message_length&quot;: 157</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>建议开发者在程序中将自己组装的<strong>签名串</strong>以及签名串的<strong>字节长度</strong>在调试信息中输出，跟微信支付返回的验签信息进行仔细对比，排查以下几种常见的错误：<strong>签名串的最后一行没有附加换行符</strong></p>
+<p>如果请求报文主体为空（如GET请求），最后一行应为一个换行符。<strong>签名串中的参数，跟实际请求的参数不一致</strong></p>
+<ul>
+<li>手工拼接的URL，和实际请求发送的不一致。我们建议的实现是，使用HTTP库构造请求对象或者URL对象，再使用相应的方法取得URL。</li>
+<li>签名和设置Authorization头时，使用了前后生成的两个时间戳</li>
+<li>签名和设置Authorization头时，使用了前后生成的两个不同的随机串。</li>
+<li>签名和请求时，使用了前后两次序列化的JSON串作为请求主体。</li>
+</ul>
+<p>商户的开发者可以将关键参数生成并保存在变量中，签名和发送请求时统一使用，避免前后生成的信息不一致。<strong>文本的编码不一致</strong></p>
+<p>生成签名串使用了非UTF-8编码或者未设置具体编码。<strong>构建签名串顺序不对</strong></p>
+<p>构建签名串没有按照文档要求的顺序进行构建。<strong>使用了错误的商户私钥</strong></p>
+<p>开发者可以使用如下的openssl命令检查私钥和商户证书中的modulus（p、q两个大素数的乘积）是否一致。如果两者一致，那么私钥和证书是成对的。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/">About</a></li>
+         
+          <li><a href="/">Writing</a></li>
+         
+          <li><a href="/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E5%89%8D%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">开发前准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">业务流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">开发流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#uniapp-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%AB%AF"><span class="toc-number">3.1.</span> <span class="toc-text">uniapp(小程序端)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#express-%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">4.</span> <span class="toc-text">express(服务端)</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&text=微信支付"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&is_video=false&description=微信支付"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=微信支付&body=Check out this article: https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&title=微信支付"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&name=微信支付&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/&t=微信支付"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021-2022
+    阿志
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
