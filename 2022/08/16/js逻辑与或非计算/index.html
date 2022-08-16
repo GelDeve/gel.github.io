@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="与运算符写作两个与符号： &amp;&amp;。布尔型数据进行与运算时， 所有的运算数据值都为真，整个式子结果才为真。 如果其中一个或两个运算数据值为假，则与的结果也是假： 123console.log(true&amp;&amp;false)    &#x2F;&#x2F; falseconsole.log(true&amp;&amp;true)     &#x2F;&#x2F; trueconsole.log(false&amp;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js逻辑与或非计算">
+<meta property="og:url" content="https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="record code">
+<meta property="og:description" content="与运算符写作两个与符号： &amp;&amp;。布尔型数据进行与运算时， 所有的运算数据值都为真，整个式子结果才为真。 如果其中一个或两个运算数据值为假，则与的结果也是假： 123console.log(true&amp;&amp;false)    &#x2F;&#x2F; falseconsole.log(true&amp;&amp;true)     &#x2F;&#x2F; trueconsole.log(false&amp;&amp;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-08-16T00:51:49.000Z">
+<meta property="article:modified_time" content="2022-08-16T01:07:25.306Z">
+<meta property="article:author" content="阿志">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>js逻辑与或非计算</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/08/15/hexo%E6%B7%BB%E5%8A%A0live2D/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&text=js逻辑与或非计算"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&is_video=false&description=js逻辑与或非计算"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=js逻辑与或非计算&body=Check out this article: https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&name=js逻辑与或非计算&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&t=js逻辑与或非计算"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        js逻辑与或非计算
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿志</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-08-16T00:51:49.000Z" itemprop="datePublished">2022-08-16</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>与运算符写作两个与符号： &amp;&amp;。布尔型数据进行与运算时，</p>
+<p>所有的运算数据值都为真，整个式子结果才为真。</p>
+<p>如果其中一个或两个运算数据值为假，则与的结果也是假：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">true</span>&amp;&amp;<span class="literal">false</span>)    <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">true</span>&amp;&amp;<span class="literal">true</span>)     <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">false</span>&amp;&amp;<span class="literal">false</span>)   <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>或运算符写作两个通道符 ||。布尔数据进行或运算时只要有一个值为真则整个运算式值也为真：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">true</span> || <span class="literal">false</span>)  <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">true</span> || <span class="literal">true</span>)   <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">false</span> || <span class="literal">false</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>逻辑非运算符写作一个感叹号： !。 只能用于单个运算数据。运算数据值为真时结果为假，反之结果为真：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(!<span class="literal">true</span>)          <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(!<span class="literal">false</span>)         <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>只要 || 前面为 false，无论 || 后面是true还是 false，结果都返回 || 后面的值。</p>
+<p>只要 || 前面为 true，无论 || 后面是true还是 false，结果都返回 || 前面的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">false</span> || <span class="string">&#x27;或运算前面为false返回后面值&#x27;</span>)                    <span class="comment">// 或运算前面为false返回后面值</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">true</span> || <span class="string">&#x27;或运算前面为true 不管后面为何值都返回前面值&#x27;</span>)      <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0</span>||<span class="number">1</span>)           <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>||<span class="string">&#x27;test&#x27;</span>)      <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;123&#x27;</span>||<span class="string">&#x27;456&#x27;</span>)   <span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+
+<p>只要 &amp;&amp; 前面是 false，无论 &amp;&amp; 后面是true还是 false，结果都将返 &amp;&amp; 前面的值;</p>
+<p>只要 &amp;&amp; 前面是 true，无论 &amp;&amp; 后面是true还是false，结果都将返 &amp;&amp; 后面的值;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">false</span>&amp;&amp;<span class="string">&#x27;与运算中前面为false后面不管什么值都返回前面值&#x27;</span>)     <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">true</span>&amp;&amp;<span class="string">&#x27;与运算中前面为true后面不管什么值都返回后面值&#x27;</span>)       <span class="comment">// 与运算中前面为true后面不管什么值都返回后面值</span></span><br></pre></td></tr></table></figure>
+
+<p>总结下来就是或运算: 只要条件为false，就会向后执行，直到条件为true，停止向后执行，并返回当前值</p>
+<p>与运算:只要条件为false就会立即返回当前值，如果为true则直接返回后面的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">false</span>||<span class="number">0</span>||<span class="number">1</span>)            <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>&amp;&amp;<span class="string">&#x27;123&#x27;</span>&amp;&amp;<span class="string">&#x27;456&#x27;</span>)        <span class="comment">// 456</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>&amp;&amp;<span class="number">0</span>&amp;&amp;<span class="string">&#x27;123&#x27;</span>)            <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0</span>&amp;&amp;<span class="number">1</span>&amp;&amp;<span class="string">&#x27;123&#x27;</span>)            <span class="comment">// 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>||<span class="string">&#x27;123&#x27;</span>||<span class="number">0</span>)            <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">0</span>||<span class="number">1</span>&amp;&amp;<span class="string">&#x27;123&#x27;</span>)            <span class="comment">// 123</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>&amp;&amp;<span class="string">&#x27;123&#x27;</span>||<span class="number">1</span>)            <span class="comment">// 123</span></span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/">About</a></li>
+         
+          <li><a href="/">Writing</a></li>
+         
+          <li><a href="/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&text=js逻辑与或非计算"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&is_video=false&description=js逻辑与或非计算"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=js逻辑与或非计算&body=Check out this article: https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&title=js逻辑与或非计算"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&name=js逻辑与或非计算&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2022/08/16/js%E9%80%BB%E8%BE%91%E4%B8%8E%E6%88%96%E9%9D%9E%E8%AE%A1%E7%AE%97/&t=js逻辑与或非计算"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021-2022
+    阿志
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"right","width":250,"height":300},"mobile":{"show":false}});</script></body>
+</html>
