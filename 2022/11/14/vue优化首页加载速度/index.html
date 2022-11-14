@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="起因:最近写了个vue的项目,使用了vuex、vuerouter、网络请求使用axios,数据可视化使用chart,ui框架使用的是vuetify有一些组件还是使用了element,vuetify并未按需引入一次性全部引入了进来,再官网中貌似好像没有看到按需引入的例子,网上查询的方法也没有成功,所以这里使用vuetify时就是一次性引入,由于element使用的组件比较少这里进行按需引入,打包后的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue优化首页加载速度">
+<meta property="og:url" content="https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/index.html">
+<meta property="og:site_name" content="record code">
+<meta property="og:description" content="起因:最近写了个vue的项目,使用了vuex、vuerouter、网络请求使用axios,数据可视化使用chart,ui框架使用的是vuetify有一些组件还是使用了element,vuetify并未按需引入一次性全部引入了进来,再官网中貌似好像没有看到按需引入的例子,网上查询的方法也没有成功,所以这里使用vuetify时就是一次性引入,由于element使用的组件比较少这里进行按需引入,打包后的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-14T01:34:34.000Z">
+<meta property="article:modified_time" content="2022-11-14T02:12:28.163Z">
+<meta property="article:author" content="阿志">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>vue优化首页加载速度</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/11/14/vue%E8%A7%A3%E5%86%B3history%E5%88%B7%E6%96%B0%E9%A1%B5%E9%9D%A2%E4%B8%A2%E5%A4%B1/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&text=vue优化首页加载速度"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&is_video=false&description=vue优化首页加载速度"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=vue优化首页加载速度&body=Check out this article: https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&name=vue优化首页加载速度&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&t=vue优化首页加载速度"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">nginx配置</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        vue优化首页加载速度
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿志</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-11-14T01:34:34.000Z" itemprop="datePublished">2022-11-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>起因:最近写了个vue的项目,使用了vuex、vuerouter、网络请求使用axios,数据可视化使用chart,ui框架使用的是vuetify有一些组件还是使用了element,vuetify并未按需引入一次性全部引入了进来,再官网中貌似好像没有看到按需引入的例子,网上查询的方法也没有成功,所以这里使用vuetify时就是一次性引入,由于element使用的组件比较少这里进行按需引入,打包后的体积我记得好像初次是13m,非常的惊人,所以还是很有必要优化一下,没优化前整个进去大概需要40s,真的是很影响体验了</p>
+<p>###使用路由懒加载</p>
+<blockquote>
+<p>vue-router路由懒加载就是访问其他页面的时候才加载，进入当前页面其他页面先不加载，可以减少耗时。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/layout&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;@/layout/layout&#x27;</span>),</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;layout&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>###去除打包时的map文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">productionSourceMap</span>: <span class="literal">false</span>, <span class="comment">//去除vue打包后js目录下生成的.map文件，用于加速生产环境构建，在vue.config.js中配置</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>###cdn加速</p>
+<p>当我们使用webpack时一般都是使用import的方式将第三方的库引入到我们的项目当中,这里在vue.config.js当中将这些库分离出来使用cdn引入,由于公司服务器的带宽比较小所以用户直接访问加速服务会好很多</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在vue.config.js当中添加webpack配置项</span></span><br><span class="line"><span class="attr">externals</span>: &#123;</span><br><span class="line">            <span class="comment">// CDN 的 Element 依赖全局变量 Vue， 所以 Vue 也需要使用 CDN 引入</span></span><br><span class="line">            <span class="string">&#x27;vue&#x27;</span>: <span class="string">&#x27;Vue&#x27;</span>,</span><br><span class="line">            <span class="comment">// 属性名称 element-ui, 表示遇到 import xxx from &#x27;element-ui&#x27; 这类引入 &#x27;element-ui&#x27;的，</span></span><br><span class="line">            <span class="comment">// 不去 node_modules 中找，而是去找 全局变量 ELEMENT</span></span><br><span class="line">            <span class="string">&#x27;axios&#x27;</span>: <span class="string">&#x27;axios&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;vuex&#x27;</span>: <span class="string">&#x27;Vuex&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;vue-router&#x27;</span>: <span class="string">&#x27;VueRouter&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;element&#x27;</span>:<span class="string">&#x27;ELEMENT&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;vuetify&quot;</span>: <span class="string">&quot;Vuetify&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 然后我们在public目录下添加cdn链接 在head标签中引入外部script标签</span></span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.staticfile.org/Chart.js/3.9.1/chart.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/element-ui/lib/index.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.6.2/vuetify.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/vuex/3.6.2/vuex.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.6.5/vue-router.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcss.com/axios/0.17.1/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="comment">// 这里要注意一些库对vue的依赖关系是不是需要先引入vue才能使用该库,其他main.js入口文件也不需要修改当遇到配置文件当中配置的关键字会跳过import去全局变量来进行引入,所以这还是很方便的,当我们打包之后要看一下index.html文件对js文件的引入路径是否正确,如果不正确需要通过配置文件的publicpath进行配置,从而正确的引入js文件,项目才能够正常访问</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><p>如果使用nginx作为服务器还可以开启服务器中gzip压缩</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 找到nginx的配置文件加入以下配置</span></span><br><span class="line">gzip on;</span><br><span class="line">gzip_min_length 1k;</span><br><span class="line">gzip_buffers <span class="number">16</span> 64k;</span><br><span class="line">gzip_http_version <span class="number">1.1</span>;</span><br><span class="line">gzip_comp_level <span class="number">6</span>;    #<span class="number">1</span>-<span class="number">9</span>,为<span class="number">9</span>的话最大消耗服务器内存以提高访问速度</span><br><span class="line">gzip_types text/plain application/x-javascript text/css application/xml; gzip_vary on;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>做完这些配置之后打包后的文件大小1m多,可以说缩小了很多,还是有优化的地方,图片还是直接使用png引入一些icon也是直接引入的,后面有时间再折腾吧,重新将项目进行部署之后,大概的打开时间在7秒左右也是快了很多</strong></p>
+<p><strong>总结:在修改配置文件当中有很多配置项都不知道什么意思,还是需要学习webpack多看看官网文档</strong></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/">About</a></li>
+         
+          <li><a href="/">Writing</a></li>
+         
+          <li><a href="/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">nginx配置</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&text=vue优化首页加载速度"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&is_video=false&description=vue优化首页加载速度"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=vue优化首页加载速度&body=Check out this article: https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&title=vue优化首页加载速度"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&name=vue优化首页加载速度&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/&t=vue优化首页加载速度"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021-2022
+    阿志
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
+</html>
