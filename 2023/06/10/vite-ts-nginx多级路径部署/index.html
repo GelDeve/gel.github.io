@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="###起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。  创建vue项目npm init vue@latest命令创建vue3项目选项中添加ts以及vue-router 创建之后在项目根目录运行npm">
+    <meta name="description" content="起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。 创建vue项目** npm init vue@latest **命令创建vue3项目选项中添加ts以及vue-router 创建之后在项目根目录运行*">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vite+ts+nginx多级路径部署">
 <meta property="og:url" content="https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="record code">
-<meta property="og:description" content="###起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。  创建vue项目npm init vue@latest命令创建vue3项目选项中添加ts以及vue-router 创建之后在项目根目录运行npm">
+<meta property="og:description" content="起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。 创建vue项目** npm init vue@latest **命令创建vue3项目选项中添加ts以及vue-router 创建之后在项目根目录运行*">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://round666.github.io/pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161322060.png">
 <meta property="og:image" content="https://round666.github.io/pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161116539.png">
 <meta property="og:image" content="https://round666.github.io/pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161405426.png">
 <meta property="article:published_time" content="2023-06-10T07:17:52.000Z">
-<meta property="article:modified_time" content="2023-06-10T08:24:31.253Z">
+<meta property="article:modified_time" content="2023-06-10T08:31:49.747Z">
 <meta property="article:author" content="阿志">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://round666.github.io/pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161322060.png">
@@ -107,7 +107,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAvue%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">创建vue项目</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0-%E6%9C%80%E8%BF%91%E5%9C%A8%E5%AD%A6%E4%B9%A0vue3%E5%85%A8%E5%AE%B6%E6%A1%B6-%E6%9C%80%E8%BF%91%E5%8D%8A%E4%B8%AA%E6%9C%88%E5%9C%A8%E5%87%BA%E5%B7%AE-%E8%BF%99%E4%B8%A4%E5%A4%A9%E6%83%B3%E5%88%B0%E4%B9%8B%E5%89%8D%E5%9C%A8%E5%81%9A%E9%A1%B9%E7%9B%AE-%E5%BD%93%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E6%97%B6-%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%9F%9F%E5%90%8D%E6%97%B6-%E9%9C%80%E8%A6%81%E5%A4%9A%E4%B8%AA%E4%B8%8D%E5%90%8C%E7%9A%84%E8%B7%AF%E5%BE%84%E6%9D%A5%E4%BE%9B%E7%94%A8%E6%88%B7%E8%AE%BF%E9%97%AE-%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%81%E9%A1%B9%E7%9B%AE%E8%B7%AF%E7%94%B1-%E4%B8%BA%E4%BA%86%E5%B7%A9%E5%9B%BAvue3%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE-%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%BD%93%E6%97%B6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%81%9A%E4%B8%AA%E6%80%BB%E7%BB%93%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAvue%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">创建vue项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEnginx"><span class="toc-number">1.2.</span> <span class="toc-text">配置nginx</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -146,11 +146,10 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>###起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。</p>
-<blockquote>
-<h4 id="创建vue项目"><a href="#创建vue项目" class="headerlink" title="创建vue项目"></a>创建vue项目</h4><p><strong>npm init vue@latest</strong>命令创建vue3项目选项中添加ts以及vue-router</p>
-<p>创建之后在项目根目录运行<strong>npm i</strong>命令下载项目所需依赖</p>
-<p>运行<strong>npm run dev</strong>启动项目</p>
+    <h3 id="起因-最近在学习vue3全家桶-最近半个月在出差-这两天想到之前在做项目-当部署项目时-部署多个项目在一个域名时-需要多个不同的路径来供用户访问-多级路径需要配置服务器、项目路由-为了巩固vue3中的配置-以及解决当时部署项目时遇到的问题做个总结。"><a href="#起因-最近在学习vue3全家桶-最近半个月在出差-这两天想到之前在做项目-当部署项目时-部署多个项目在一个域名时-需要多个不同的路径来供用户访问-多级路径需要配置服务器、项目路由-为了巩固vue3中的配置-以及解决当时部署项目时遇到的问题做个总结。" class="headerlink" title="起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。"></a>起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。</h3><blockquote>
+<h4 id="创建vue项目"><a href="#创建vue项目" class="headerlink" title="创建vue项目"></a>创建vue项目</h4><p>** npm init vue@latest **命令创建vue3项目选项中添加ts以及vue-router</p>
+<p>创建之后在项目根目录运行** npm i **命令下载项目所需依赖</p>
+<p>运行** npm run dev **启动项目</p>
 <p>以history路由模式为例,在项目中配置路由配置,修改history为createWebHistory选项,可以传入路由的开头路径,当没有传入开头路径时,访问<strong>127.0.0.1:项目运行端口</strong>就可以看到项目运行效果</p>
 <p>当我们想以demo为路由开头进行访问时(将127.0.0.1想象成一个域名,当用户输入不同的路径访问不同的项目),就需要配置不同的路由路径,以项目路由开头为demo01为例,当我们在createWebHistory传入’&#x2F;demo01’,此时输入**127.0.0.1:项目运行端口&#x2F;demo01&#x2F;**也能够看到项目运行效果,当我们切换路由显示时，每个页面的路由路径前面都加上了demo01</p>
 <p>如果这时我们考虑生产环境与开发环境我们的路由路径开头是不一样的,可以使用vite中<a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/env-and-mode.html">环境变量的配置选项</a>,我们可以将createWebHistory传入的路径抽离,在项目根目录下新建.env文件写入VITE_URL&#x3D;’demo01‘，此时再向createWebHistory传入import.meta.env.VITE_URL也是一样的效果，注意.env结尾的文件vite会自动根据运行环境注入到全局变量中，并且声明的变量都需要以vite开头</p>
@@ -161,8 +160,7 @@
 <p>运行<strong>npm run build</strong>将项目打包,打包完成之后,在项目根目录项可以看到dist目录,新建一个目录将其中的项目文件复制到该目录下便于nginx配置指向该目录下供用户访问</p>
 </blockquote>
 <blockquote>
-<p>####配置<a target="_blank" rel="noopener" href="https://nginx.org/download/nginx-1.22.1.tar.gz">nginx</a></p>
-<p>以windows环境下为例,下载好压缩包解压之后打开根目录下的nginx.exe可执行文件</p>
+<h4 id="配置nginx"><a href="#配置nginx" class="headerlink" title="配置nginx"></a>配置<a target="_blank" rel="noopener" href="https://nginx.org/download/nginx-1.22.1.tar.gz">nginx</a></h4><p>以windows环境下为例,下载好压缩包解压之后打开根目录下的nginx.exe可执行文件</p>
 <p>要注意在logs目录下nginx.conf是nginx的配置文件,默认运行端口为http的80端口,确保80端口未被其他进程占用,80端口被占用的话在配置文件中修改server配置项中port配置修改其他空闲端口,修改之后在nginx根目录打开cmd窗口输入<strong>nginx -s reload</strong> 命令进行重启，每次修改配置文件之后都需要重新启动nginx以保证配置生效，在浏览器输入127.0.0.1:nginx端口就能看到nginx的欢迎页面</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="comment">// 打开nginx配置文件在server中新增一个location</span></span><br><span class="line">&gt;<span class="comment">// G:/vue/demo01/demo01/ 是我的路径</span></span><br><span class="line">&gt;<span class="comment">// try_files作用是按顺序检查文件是否存在，返回第一个找到的文件或文件夹（结尾加斜杠/的表示文件夹），</span></span><br><span class="line">&gt;<span class="comment">// 若所有的文件或文件夹都找不到，会进行一个内部重定向</span></span><br><span class="line">&gt;<span class="comment">// 到最后一个参数。</span></span><br><span class="line">&gt;<span class="comment">// 所有以demo01开头的请求转到该项目</span></span><br><span class="line">&gt;location ^~/demo01 &#123;</span><br><span class="line">    alias 项目路径/;</span><br><span class="line">    index  index.<span class="property">html</span>;</span><br><span class="line"> 	 <span class="comment">// 这里需要注意配置第三个选项当回退时需要找到该项配置回成功指向目录下的入口文件</span></span><br><span class="line">    try_files $uri $uri/ <span class="regexp">/demo01/i</span>ndex.<span class="property">html</span>;  </span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;重启nginx,就看到能够项目运行成功了</span><br></pre></td></tr></table></figure>
 
@@ -192,7 +190,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAvue%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">创建vue项目</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0-%E6%9C%80%E8%BF%91%E5%9C%A8%E5%AD%A6%E4%B9%A0vue3%E5%85%A8%E5%AE%B6%E6%A1%B6-%E6%9C%80%E8%BF%91%E5%8D%8A%E4%B8%AA%E6%9C%88%E5%9C%A8%E5%87%BA%E5%B7%AE-%E8%BF%99%E4%B8%A4%E5%A4%A9%E6%83%B3%E5%88%B0%E4%B9%8B%E5%89%8D%E5%9C%A8%E5%81%9A%E9%A1%B9%E7%9B%AE-%E5%BD%93%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E6%97%B6-%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AA%E9%A1%B9%E7%9B%AE%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%9F%9F%E5%90%8D%E6%97%B6-%E9%9C%80%E8%A6%81%E5%A4%9A%E4%B8%AA%E4%B8%8D%E5%90%8C%E7%9A%84%E8%B7%AF%E5%BE%84%E6%9D%A5%E4%BE%9B%E7%94%A8%E6%88%B7%E8%AE%BF%E9%97%AE-%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%81%E9%A1%B9%E7%9B%AE%E8%B7%AF%E7%94%B1-%E4%B8%BA%E4%BA%86%E5%B7%A9%E5%9B%BAvue3%E4%B8%AD%E7%9A%84%E9%85%8D%E7%BD%AE-%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E5%BD%93%E6%97%B6%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98%E5%81%9A%E4%B8%AA%E6%80%BB%E7%BB%93%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAvue%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.1.</span> <span class="toc-text">创建vue项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEnginx"><span class="toc-number">1.2.</span> <span class="toc-text">配置nginx</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
