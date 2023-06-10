@@ -14,7 +14,7 @@
 <meta property="og:description" content="起因在使用vueRouter的history模式时,刷新页面会丢失 原因 是因为在history模式下，只是动态的通过js操作window.history来改变浏览器地址栏里的路径，并没有发起http请求，但是当我直接在浏览器里输入这个地址的时候，就一定要对服务器发起http请求，但是这个目标在服务器上又不存在，所以会返回404  nginx配置12345location &#x2F;&amp;#123;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-14T02:13:00.000Z">
-<meta property="article:modified_time" content="2023-06-10T08:43:47.666Z">
+<meta property="article:modified_time" content="2023-06-10T08:59:58.282Z">
 <meta property="article:author" content="阿志">
 <meta name="twitter:card" content="summary">
     
@@ -150,7 +150,7 @@
 </blockquote>
 <h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location /&#123;</span><br><span class="line">            root   /home/linuxLogin/views/dist;		<span class="comment">// 将文件指向到vue打包后的dist目录</span></span><br><span class="line">            index index.<span class="property">html</span> index.<span class="property">htm</span>;</span><br><span class="line">            try_files  $uri $uri /index.<span class="property">html</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>** 这样刷新就能够正常访问了 **</p>
+<p><strong>这样刷新就能够正常访问了</strong></p>
 
   </div>
 </article>
