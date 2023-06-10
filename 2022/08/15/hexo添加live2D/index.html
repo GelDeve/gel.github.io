@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="##准备在hexo安装目录 1npm install --save hexo-helper-live2d 新建目录live2d_models 下载喜欢的主题有下面主题可供选择，挑选自己喜欢的  live2d-widget-model-chitose live2d-widget-model-epsilon2_1 live2d-widget-model-gf live2d-widget-model-h">
+    <meta name="description" content="准备在hexo安装目录 1npm install --save hexo-helper-live2d 新建目录live2d_models 下载喜欢的主题有下面主题可供选择，挑选自己喜欢的  live2d-widget-model-chitose live2d-widget-model-epsilon2_1 live2d-widget-model-gf live2d-widget-model-har">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo添加live2D">
 <meta property="og:url" content="https://round666.github.io/2022/08/15/hexo%E6%B7%BB%E5%8A%A0live2D/index.html">
 <meta property="og:site_name" content="record code">
-<meta property="og:description" content="##准备在hexo安装目录 1npm install --save hexo-helper-live2d 新建目录live2d_models 下载喜欢的主题有下面主题可供选择，挑选自己喜欢的  live2d-widget-model-chitose live2d-widget-model-epsilon2_1 live2d-widget-model-gf live2d-widget-model-h">
+<meta property="og:description" content="准备在hexo安装目录 1npm install --save hexo-helper-live2d 新建目录live2d_models 下载喜欢的主题有下面主题可供选择，挑选自己喜欢的  live2d-widget-model-chitose live2d-widget-model-epsilon2_1 live2d-widget-model-gf live2d-widget-model-har">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://round666.github.io/pic/hexo%E6%B7%BB%E5%8A%A0live2D/image-20220815173402227.png">
 <meta property="og:image" content="https://round666.github.io/pic/hexo%E6%B7%BB%E5%8A%A0live2D/image-20220815173503485.png">
 <meta property="article:published_time" content="2022-08-15T09:18:38.000Z">
-<meta property="article:modified_time" content="2022-08-15T09:36:29.897Z">
+<meta property="article:modified_time" content="2023-06-10T08:42:28.807Z">
 <meta property="article:author" content="阿志">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://round666.github.io/pic/hexo%E6%B7%BB%E5%8A%A0live2D/image-20220815173402227.png">
@@ -108,7 +108,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -147,7 +147,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>##准备<br>在hexo安装目录</p>
+    <h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>在hexo安装目录</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save hexo-helper-live2d</span><br></pre></td></tr></table></figure>
 <p>新建目录live2d_models 下载喜欢的主题<br>有下面主题可供选择，挑选自己喜欢的</p>
 <ol>
@@ -179,10 +179,10 @@
 这里下载live2d-widget-model-hijiki这款
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i live2d-widget-model-hijiki</span><br></pre></td></tr></table></figure>
 下载完后将包放入live2d_models中
-##配置
+## 配置
 打开hexo配置文件加上
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">live2d</span>:</span><br><span class="line">  <span class="attr">enable</span>: <span class="literal">true</span></span><br><span class="line">  <span class="attr">scriptFrom</span>: local</span><br><span class="line">  <span class="attr">pluginRootPath</span>: live2d_models/			<span class="comment">// 新建目录</span></span><br><span class="line">  <span class="attr">pluginJsPath</span>: lib/</span><br><span class="line">  <span class="attr">pluginModelPath</span>: assets/</span><br><span class="line">  <span class="attr">tagMode</span>: <span class="literal">false</span></span><br><span class="line">  <span class="attr">log</span>: <span class="literal">false</span></span><br><span class="line">  <span class="attr">model</span>:</span><br><span class="line">    <span class="attr">use</span>: live2d-widget-model-xxxx			<span class="comment">// 主题名称</span></span><br><span class="line">  <span class="attr">display</span>:</span><br><span class="line">    <span class="attr">position</span>: right										<span class="comment">// 位置</span></span><br><span class="line">    <span class="attr">width</span>: <span class="number">250</span>												<span class="comment">// 主题宽高</span></span><br><span class="line">    <span class="attr">height</span>: <span class="number">300</span></span><br><span class="line">  <span class="attr">mobile</span>:	</span><br><span class="line">    <span class="attr">show</span>: <span class="literal">false</span>												<span class="comment">// 移动设备是否显示  建议不显示</span></span><br></pre></td></tr></table></figure>
-##更改主题样式
+## 更改主题样式
 
 <p>在该路径下用ps打开主题的png图片，修改成想要的</p>
 <p><img src="/../pic/hexo%E6%B7%BB%E5%8A%A0live2D/image-20220815173402227.png" alt="image-20220815173402227"></p>
@@ -214,7 +214,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

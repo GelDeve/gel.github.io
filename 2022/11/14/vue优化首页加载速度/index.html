@@ -14,7 +14,7 @@
 <meta property="og:description" content="起因:最近写了个vue的项目,使用了vuex、vuerouter、网络请求使用axios,数据可视化使用chart,ui框架使用的是vuetify有一些组件还是使用了element,vuetify并未按需引入一次性全部引入了进来,再官网中貌似好像没有看到按需引入的例子,网上查询的方法也没有成功,所以这里使用vuetify时就是一次性引入,由于element使用的组件比较少这里进行按需引入,打包后的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-11-14T01:34:34.000Z">
-<meta property="article:modified_time" content="2022-11-14T02:12:28.163Z">
+<meta property="article:modified_time" content="2023-06-10T08:44:07.693Z">
 <meta property="article:author" content="阿志">
 <meta name="twitter:card" content="summary">
     
@@ -105,7 +105,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">nginx配置</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">使用路由懒加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E9%99%A4%E6%89%93%E5%8C%85%E6%97%B6%E7%9A%84map%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">去除打包时的map文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cdn%E5%8A%A0%E9%80%9F"><span class="toc-number">3.</span> <span class="toc-text">cdn加速</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">nginx配置</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -145,21 +145,18 @@
 
   <div class="content" itemprop="articleBody">
     <p>起因:最近写了个vue的项目,使用了vuex、vuerouter、网络请求使用axios,数据可视化使用chart,ui框架使用的是vuetify有一些组件还是使用了element,vuetify并未按需引入一次性全部引入了进来,再官网中貌似好像没有看到按需引入的例子,网上查询的方法也没有成功,所以这里使用vuetify时就是一次性引入,由于element使用的组件比较少这里进行按需引入,打包后的体积我记得好像初次是13m,非常的惊人,所以还是很有必要优化一下,没优化前整个进去大概需要40s,真的是很影响体验了</p>
-<p>###使用路由懒加载</p>
-<blockquote>
+<h3 id="使用路由懒加载"><a href="#使用路由懒加载" class="headerlink" title="使用路由懒加载"></a>使用路由懒加载</h3><blockquote>
 <p>vue-router路由懒加载就是访问其他页面的时候才加载，进入当前页面其他页面先不加载，可以减少耗时。</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;/layout&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;@/layout/layout&#x27;</span>),</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;layout&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<p>###去除打包时的map文件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">productionSourceMap</span>: <span class="literal">false</span>, <span class="comment">//去除vue打包后js目录下生成的.map文件，用于加速生产环境构建，在vue.config.js中配置</span></span><br></pre></td></tr></table></figure>
+<h3 id="去除打包时的map文件"><a href="#去除打包时的map文件" class="headerlink" title="去除打包时的map文件"></a>去除打包时的map文件</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">productionSourceMap</span>: <span class="literal">false</span>, <span class="comment">//去除vue打包后js目录下生成的.map文件，用于加速生产环境构建，在vue.config.js中配置</span></span><br></pre></td></tr></table></figure>
 
 
 
-<p>###cdn加速</p>
-<p>当我们使用webpack时一般都是使用import的方式将第三方的库引入到我们的项目当中,这里在vue.config.js当中将这些库分离出来使用cdn引入,由于公司服务器的带宽比较小所以用户直接访问加速服务会好很多</p>
+<h3 id="cdn加速"><a href="#cdn加速" class="headerlink" title="cdn加速"></a>cdn加速</h3><p>当我们使用webpack时一般都是使用import的方式将第三方的库引入到我们的项目当中,这里在vue.config.js当中将这些库分离出来使用cdn引入,由于公司服务器的带宽比较小所以用户直接访问加速服务会好很多</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在vue.config.js当中添加webpack配置项</span></span><br><span class="line"><span class="attr">externals</span>: &#123;</span><br><span class="line">            <span class="comment">// CDN 的 Element 依赖全局变量 Vue， 所以 Vue 也需要使用 CDN 引入</span></span><br><span class="line">            <span class="string">&#x27;vue&#x27;</span>: <span class="string">&#x27;Vue&#x27;</span>,</span><br><span class="line">            <span class="comment">// 属性名称 element-ui, 表示遇到 import xxx from &#x27;element-ui&#x27; 这类引入 &#x27;element-ui&#x27;的，</span></span><br><span class="line">            <span class="comment">// 不去 node_modules 中找，而是去找 全局变量 ELEMENT</span></span><br><span class="line">            <span class="string">&#x27;axios&#x27;</span>: <span class="string">&#x27;axios&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;vuex&#x27;</span>: <span class="string">&#x27;Vuex&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;vue-router&#x27;</span>: <span class="string">&#x27;VueRouter&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;element&#x27;</span>:<span class="string">&#x27;ELEMENT&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;vuetify&quot;</span>: <span class="string">&quot;Vuetify&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 然后我们在public目录下添加cdn链接 在head标签中引入外部script标签</span></span><br><span class="line">&lt;script src=<span class="string">&quot;https://cdn.staticfile.org/Chart.js/3.9.1/chart.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/element-ui/lib/index.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.6.2/vuetify.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/vuex/3.6.2/vuex.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.6.5/vue-router.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcss.com/axios/0.17.1/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="comment">// 这里要注意一些库对vue的依赖关系是不是需要先引入vue才能使用该库,其他main.js入口文件也不需要修改当遇到配置文件当中配置的关键字会跳过import去全局变量来进行引入,所以这还是很方便的,当我们打包之后要看一下index.html文件对js文件的引入路径是否正确,如果不正确需要通过配置文件的publicpath进行配置,从而正确的引入js文件,项目才能够正常访问</span></span><br></pre></td></tr></table></figure>
 
 
@@ -169,8 +166,8 @@
 
 
 
-<p><strong>做完这些配置之后打包后的文件大小1m多,可以说缩小了很多,还是有优化的地方,图片还是直接使用png引入一些icon也是直接引入的,后面有时间再折腾吧,重新将项目进行部署之后,大概的打开时间在7秒左右也是快了很多</strong></p>
-<p><strong>总结:在修改配置文件当中有很多配置项都不知道什么意思,还是需要学习webpack多看看官网文档</strong></p>
+<p>** 做完这些配置之后打包后的文件大小1m多,可以说缩小了很多,还是有优化的地方,图片还是直接使用png引入一些icon也是直接引入的,后面有时间再折腾吧,重新将项目进行部署之后,大概的打开时间在7秒左右也是快了很多 **</p>
+<p>** 总结:在修改配置文件当中有很多配置项都不知道什么意思,还是需要学习webpack多看看官网文档 **</p>
 
   </div>
 </article>
@@ -196,7 +193,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx%E9%85%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">nginx配置</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">使用路由懒加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E9%99%A4%E6%89%93%E5%8C%85%E6%97%B6%E7%9A%84map%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">去除打包时的map文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cdn%E5%8A%A0%E9%80%9F"><span class="toc-number">3.</span> <span class="toc-text">cdn加速</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">nginx配置</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

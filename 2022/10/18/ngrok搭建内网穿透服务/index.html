@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="###起因:项目中需要集成微信登陆,使用网页来调用微信的接口获取用户的code时,需要保持接口参数中的回调地址与后台配置的回调地址一致,为了开发方便,回调地址直接就是本地的开发环境,使用ngrok搭建内网穿透,使外网直接访问本地服务 ###下载ngrok下载地址由于本地开发环境是Windows,所以直接下载windows平台的包就OK,下载完成之后,解压打开文件夹 ###搭建运行文件夹下的ngro">
+    <meta name="description" content="起因项目中需要集成微信登陆,使用网页来调用微信的接口获取用户的code时,需要保持接口参数中的回调地址与后台配置的回调地址一致,为了开发方便,回调地址直接就是本地的开发环境,使用ngrok搭建内网穿透,使外网直接访问本地服务 下载ngrok下载地址由于本地开发环境是Windows,所以直接下载windows平台的包就OK,下载完成之后,解压打开文件夹 搭建运行文件夹下的ngrok.exe,打开之后">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ngrok搭建内网穿透服务">
 <meta property="og:url" content="https://round666.github.io/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/index.html">
 <meta property="og:site_name" content="record code">
-<meta property="og:description" content="###起因:项目中需要集成微信登陆,使用网页来调用微信的接口获取用户的code时,需要保持接口参数中的回调地址与后台配置的回调地址一致,为了开发方便,回调地址直接就是本地的开发环境,使用ngrok搭建内网穿透,使外网直接访问本地服务 ###下载ngrok下载地址由于本地开发环境是Windows,所以直接下载windows平台的包就OK,下载完成之后,解压打开文件夹 ###搭建运行文件夹下的ngro">
+<meta property="og:description" content="起因项目中需要集成微信登陆,使用网页来调用微信的接口获取用户的code时,需要保持接口参数中的回调地址与后台配置的回调地址一致,为了开发方便,回调地址直接就是本地的开发环境,使用ngrok搭建内网穿透,使外网直接访问本地服务 下载ngrok下载地址由于本地开发环境是Windows,所以直接下载windows平台的包就OK,下载完成之后,解压打开文件夹 搭建运行文件夹下的ngrok.exe,打开之后">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://round666.github.io/pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png">
 <meta property="og:image" content="https://round666.github.io/pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172737998.png">
 <meta property="article:published_time" content="2022-10-18T09:10:48.000Z">
-<meta property="article:modified_time" content="2022-10-18T09:31:33.358Z">
+<meta property="article:modified_time" content="2023-06-10T08:43:21.994Z">
 <meta property="article:author" content="阿志">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://round666.github.io/pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png">
@@ -108,7 +108,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA"><span class="toc-number">3.</span> <span class="toc-text">搭建</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -147,9 +147,9 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>###起因:项目中需要集成微信登陆,使用网页来调用微信的接口获取用户的code时,需要保持接口参数中的回调地址与后台配置的回调地址一致,为了开发方便,回调地址直接就是本地的开发环境,使用ngrok搭建内网穿透,使外网直接访问本地服务</p>
-<p>###下载<br><a target="_blank" rel="noopener" href="https://ngrok.com/download">ngrok下载地址</a><br>由于本地开发环境是Windows,所以直接下载windows平台的包就OK,下载完成之后,解压打开文件夹</p>
-<p>###搭建<br>运行文件夹下的ngrok.exe,打开之后就是一个cmd的黑窗口,首先我们需要去<a target="_blank" rel="noopener" href="https://ngrok.com/">官网</a>注册一个账号获取authtoken<br><img src="/../pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png" alt="image-20221018172343067"><br>这个就是我们的authtoken,返回黑窗口输入</p>
+    <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>项目中需要集成微信登陆,使用网页来调用微信的接口获取用户的code时,需要保持接口参数中的回调地址与后台配置的回调地址一致,为了开发方便,回调地址直接就是本地的开发环境,使用ngrok搭建内网穿透,使外网直接访问本地服务</p>
+<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a target="_blank" rel="noopener" href="https://ngrok.com/download">ngrok下载地址</a><br>由于本地开发环境是Windows,所以直接下载windows平台的包就OK,下载完成之后,解压打开文件夹</p>
+<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>运行文件夹下的ngrok.exe,打开之后就是一个cmd的黑窗口,首先我们需要去<a target="_blank" rel="noopener" href="https://ngrok.com/">官网</a>注册一个账号获取authtoken<br><img src="/../pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png" alt="image-20221018172343067"><br>这个就是我们的authtoken,返回黑窗口输入</p>
 <blockquote>
 <p>ngrok authtoken 你的authToken</p>
 </blockquote>
@@ -186,7 +186,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA"><span class="toc-number">3.</span> <span class="toc-text">搭建</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
