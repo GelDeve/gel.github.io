@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="###起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。  创建vue项目npm init vue@latest命令创建vue3项目选项中添加ts以及vue-router 创建之后在项目根目录运行npm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vite+ts+nginx多级路径部署">
+<meta property="og:url" content="https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="record code">
+<meta property="og:description" content="###起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。  创建vue项目npm init vue@latest命令创建vue3项目选项中添加ts以及vue-router 创建之后在项目根目录运行npm">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://round666.github.io/pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161322060.png">
+<meta property="og:image" content="https://round666.github.io/pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161116539.png">
+<meta property="og:image" content="https://round666.github.io/pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161405426.png">
+<meta property="article:published_time" content="2023-06-10T07:17:52.000Z">
+<meta property="article:modified_time" content="2023-06-10T08:24:31.253Z">
+<meta property="article:author" content="阿志">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://round666.github.io/pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161322060.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>vite+ts+nginx多级路径部署</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&text=vite+ts+nginx多级路径部署"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&is_video=false&description=vite+ts+nginx多级路径部署"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=vite+ts+nginx多级路径部署&body=Check out this article: https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&name=vite+ts+nginx多级路径部署&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&t=vite+ts+nginx多级路径部署"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAvue%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">创建vue项目</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        vite+ts+nginx多级路径部署
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿志</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-10T07:17:52.000Z" itemprop="datePublished">2023-06-10</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>###起因:最近在学习vue3全家桶,最近半个月在出差,这两天想到之前在做项目,当部署项目时,部署多个项目在一个域名时,需要多个不同的路径来供用户访问,多级路径需要配置服务器、项目路由,为了巩固vue3中的配置,以及解决当时部署项目时遇到的问题做个总结。</p>
+<blockquote>
+<h4 id="创建vue项目"><a href="#创建vue项目" class="headerlink" title="创建vue项目"></a>创建vue项目</h4><p><strong>npm init vue@latest</strong>命令创建vue3项目选项中添加ts以及vue-router</p>
+<p>创建之后在项目根目录运行<strong>npm i</strong>命令下载项目所需依赖</p>
+<p>运行<strong>npm run dev</strong>启动项目</p>
+<p>以history路由模式为例,在项目中配置路由配置,修改history为createWebHistory选项,可以传入路由的开头路径,当没有传入开头路径时,访问<strong>127.0.0.1:项目运行端口</strong>就可以看到项目运行效果</p>
+<p>当我们想以demo为路由开头进行访问时(将127.0.0.1想象成一个域名,当用户输入不同的路径访问不同的项目),就需要配置不同的路由路径,以项目路由开头为demo01为例,当我们在createWebHistory传入’&#x2F;demo01’,此时输入**127.0.0.1:项目运行端口&#x2F;demo01&#x2F;**也能够看到项目运行效果,当我们切换路由显示时，每个页面的路由路径前面都加上了demo01</p>
+<p>如果这时我们考虑生产环境与开发环境我们的路由路径开头是不一样的,可以使用vite中<a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/env-and-mode.html">环境变量的配置选项</a>,我们可以将createWebHistory传入的路径抽离,在项目根目录下新建.env文件写入VITE_URL&#x3D;’demo01‘，此时再向createWebHistory传入import.meta.env.VITE_URL也是一样的效果，注意.env结尾的文件vite会自动根据运行环境注入到全局变量中，并且声明的变量都需要以vite开头</p>
+<p><img src="/../pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161322060.png" alt="image-20230610161322060"></p>
+<p><img src="/../pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161116539.png" alt="image-20230610161116539"></p>
+<p>修改vite配置文件打包的base选项修改为’.&#x2F;‘</p>
+<p><img src="/../pic/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/image-20230610161405426.png" alt="image-20230610161405426"></p>
+<p>运行<strong>npm run build</strong>将项目打包,打包完成之后,在项目根目录项可以看到dist目录,新建一个目录将其中的项目文件复制到该目录下便于nginx配置指向该目录下供用户访问</p>
+</blockquote>
+<blockquote>
+<p>####配置<a target="_blank" rel="noopener" href="https://nginx.org/download/nginx-1.22.1.tar.gz">nginx</a></p>
+<p>以windows环境下为例,下载好压缩包解压之后打开根目录下的nginx.exe可执行文件</p>
+<p>要注意在logs目录下nginx.conf是nginx的配置文件,默认运行端口为http的80端口,确保80端口未被其他进程占用,80端口被占用的话在配置文件中修改server配置项中port配置修改其他空闲端口,修改之后在nginx根目录打开cmd窗口输入<strong>nginx -s reload</strong> 命令进行重启，每次修改配置文件之后都需要重新启动nginx以保证配置生效，在浏览器输入127.0.0.1:nginx端口就能看到nginx的欢迎页面</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;<span class="comment">// 打开nginx配置文件在server中新增一个location</span></span><br><span class="line">&gt;<span class="comment">// G:/vue/demo01/demo01/ 是我的路径</span></span><br><span class="line">&gt;<span class="comment">// try_files作用是按顺序检查文件是否存在，返回第一个找到的文件或文件夹（结尾加斜杠/的表示文件夹），</span></span><br><span class="line">&gt;<span class="comment">// 若所有的文件或文件夹都找不到，会进行一个内部重定向</span></span><br><span class="line">&gt;<span class="comment">// 到最后一个参数。</span></span><br><span class="line">&gt;<span class="comment">// 所有以demo01开头的请求转到该项目</span></span><br><span class="line">&gt;location ^~/demo01 &#123;</span><br><span class="line">    alias 项目路径/;</span><br><span class="line">    index  index.<span class="property">html</span>;</span><br><span class="line"> 	 <span class="comment">// 这里需要注意配置第三个选项当回退时需要找到该项配置回成功指向目录下的入口文件</span></span><br><span class="line">    try_files $uri $uri/ <span class="regexp">/demo01/i</span>ndex.<span class="property">html</span>;  </span><br><span class="line">&gt;&#125;</span><br><span class="line">&gt;重启nginx,就看到能够项目运行成功了</span><br></pre></td></tr></table></figure>
+
+</blockquote>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/">About</a></li>
+         
+          <li><a href="/">Writing</a></li>
+         
+          <li><a href="/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAvue%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.</span> <span class="toc-text">创建vue项目</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&text=vite+ts+nginx多级路径部署"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&is_video=false&description=vite+ts+nginx多级路径部署"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=vite+ts+nginx多级路径部署&body=Check out this article: https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&title=vite+ts+nginx多级路径部署"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&name=vite+ts+nginx多级路径部署&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/&t=vite+ts+nginx多级路径部署"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021-2023
+    阿志
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
+</html>
