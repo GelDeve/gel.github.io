@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="起因在b站上偶然看到了一个关于docker的视频,在之前部署项目时,配置服务器环境属是费了不少劲,之前在学习linux时也多少接触过一点docker,浅尝辄止,只是大概的知道几条命令,当初并不能够理解docker的架构以及业务意义,昨天看了一下官方文档,这里也作出进一步的学习。 docker架构  Docker 使用客户端-服务器架构。Docker 客户端与 Docker 守护程序通信，后者负责构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识docker">
+<meta property="og:url" content="https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/index.html">
+<meta property="og:site_name" content="record code">
+<meta property="og:description" content="起因在b站上偶然看到了一个关于docker的视频,在之前部署项目时,配置服务器环境属是费了不少劲,之前在学习linux时也多少接触过一点docker,浅尝辄止,只是大概的知道几条命令,当初并不能够理解docker的架构以及业务意义,昨天看了一下官方文档,这里也作出进一步的学习。 docker架构  Docker 使用客户端-服务器架构。Docker 客户端与 Docker 守护程序通信，后者负责构">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%88%9D%E8%AF%86docker/1688351225707.jpg">
+<meta property="og:image" content="https://round666.github.io/pic/%E5%88%9D%E8%AF%86docker/image-20230703110246683.png">
+<meta property="article:published_time" content="2023-07-03T01:55:25.000Z">
+<meta property="article:modified_time" content="2023-07-03T03:13:58.928Z">
+<meta property="article:author" content="阿志">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://round666.github.io/pic/%E5%88%9D%E8%AF%86docker/1688351225707.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>初识docker</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&text=初识docker"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&is_video=false&description=初识docker"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=初识docker&body=Check out this article: https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&name=初识docker&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&t=初识docker"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker%E6%9E%B6%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">docker架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">docker 基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">docker使用</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        初识docker
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿志</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-07-03T01:55:25.000Z" itemprop="datePublished">2023-07-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h4 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h4><p>在b站上偶然看到了一个关于docker的视频,在之前部署项目时,配置服务器环境属是费了不少劲,之前在学习linux时也多少接触过一点docker,浅尝辄止,只是大概的知道几条命令,当初并不能够理解docker的架构以及业务意义,昨天看了一下官方文档,这里也作出进一步的学习。</p>
+<h4 id="docker架构"><a href="#docker架构" class="headerlink" title="docker架构"></a>docker架构</h4><p><img src="/../pic/%E5%88%9D%E8%AF%86docker/1688351225707.jpg" alt="1688351225707"></p>
+<blockquote>
+<p>Docker 使用客户端-服务器架构。Docker 客户端与 Docker 守护程序通信，后者负责构建、运行和分发 Docker 容器的繁重工作。Docker 客户端和守护程序可以在同一系统上运行，也可以将 Docker 客户端连接到远程 Docker 守护程序。Docker 客户端和守护程序使用 REST API 通过 UNIX 套接字或网络接口进行通信。另一个 Docker 客户端是 Docker Compose，它允许您使用由一组容器组成的应用程序。</p>
+</blockquote>
+<h4 id="docker-基本概念"><a href="#docker-基本概念" class="headerlink" title="docker 基本概念"></a>docker 基本概念</h4><p><img src="/../pic/%E5%88%9D%E8%AF%86docker/image-20230703110246683.png" alt="image-20230703110246683"></p>
+<p>**镜像(Image)**：Docker 镜像（Image），就相当于是一个 root 文件系统。比如官方镜像 ubuntu:16.04 就包含了完整的一套 Ubuntu16.04 最小系统的 root 文件系统。<br><strong>容器(Container)</strong>:镜像（Image）和容器（Container）的关系，就像是面向对象程序设计中的类和实例一样，镜像是静态的定义，容器是镜像运行时的实体。容器可以被创建、启动、停止、删除、暂停等。<br><strong>仓库(Repository)</strong>:仓库可看成一个代码控制中心，用来保存镜像。</p>
+<h4 id="docker使用"><a href="#docker使用" class="headerlink" title="docker使用"></a>docker使用</h4><p><a target="_blank" rel="noopener" href="https://labs.play-with-docker.com/">play with docker</a>使用在线网站学习创建docker,注册登录之后会自动生成一个虚拟机实例,通过shell命令就能够进行学习</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建nginx为例</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker pull nginx (==docker pull nginx:lastest 默认拉取远程仓库中的最新版本)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker images (查看本地镜像)</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker run -d -p 80:80 nginx (运行容器 -d 后台运行不堵塞当前shell -p 80(本机80端口):80(容器80端口)容器80端口映射到本机80端口 )</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">docker ps  (查看当前正在运行的docker容器)</span></span><br></pre></td></tr></table></figure>
+
+<p>点击当前页面的OPEN PORT按钮,输入80,就会自动跳转到该实例虚拟机的80端口访问页面,nginx欢迎页面就显示了</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/">About</a></li>
+         
+          <li><a href="/">Writing</a></li>
+         
+          <li><a href="/">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker%E6%9E%B6%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">docker架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">3.</span> <span class="toc-text">docker 基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">docker使用</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&text=初识docker"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&is_video=false&description=初识docker"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=初识docker&body=Check out this article: https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&title=初识docker"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&name=初识docker&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2023/07/03/%E5%88%9D%E8%AF%86docker/&t=初识docker"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2021-2023
+    阿志
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/">About</a></li><!--
+     --><!--
+       --><li><a href="/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+<script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
+</html>
