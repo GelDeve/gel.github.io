@@ -9,32 +9,32 @@
     <meta name="description" content="起因项目中需要集成微信登陆,使用网页来调用微信的接口获取用户的code时,需要保持接口参数中的回调地址与后台配置的回调地址一致,为了开发方便,回调地址直接就是本地的开发环境,使用ngrok搭建内网穿透,使外网直接访问本地服务 下载ngrok下载地址由于本地开发环境是Windows,所以直接下载windows平台的包就OK,下载完成之后,解压打开文件夹 搭建运行文件夹下的ngrok.exe,打开之后">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ngrok搭建内网穿透服务">
-<meta property="og:url" content="https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/index.html">
+<meta property="og:url" content="https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/index.html">
 <meta property="og:site_name" content="record code">
 <meta property="og:description" content="起因项目中需要集成微信登陆,使用网页来调用微信的接口获取用户的code时,需要保持接口参数中的回调地址与后台配置的回调地址一致,为了开发方便,回调地址直接就是本地的开发环境,使用ngrok搭建内网穿透,使外网直接访问本地服务 下载ngrok下载地址由于本地开发环境是Windows,所以直接下载windows平台的包就OK,下载完成之后,解压打开文件夹 搭建运行文件夹下的ngrok.exe,打开之后">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/gelamour/pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png">
-<meta property="og:image" content="https://github.com/gelamour/pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172737998.png">
+<meta property="og:image" content="https://gelamour.github.io/pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png">
+<meta property="og:image" content="https://gelamour.github.io/pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172737998.png">
 <meta property="article:published_time" content="2022-10-18T09:10:48.000Z">
 <meta property="article:modified_time" content="2023-06-10T08:43:21.994Z">
 <meta property="article:author" content="阿志">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/gelamour/pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png">
+<meta name="twitter:image" content="https://gelamour.github.io/pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png">
     
     
       
         
-          <link rel="shortcut icon" href="/gelamour/blog.git/images/favicon.ico">
+          <link rel="shortcut icon" href="/blog/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/gelamour/blog.git/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/blog/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/gelamour/blog.git/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
         
       
     
@@ -42,7 +42,7 @@
     <title>ngrok搭建内网穿透服务</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/gelamour/blog.git/css/style.css">
+<link rel="stylesheet" href="/blog/css/style.css">
 
     <!-- persian styles -->
     
@@ -63,13 +63,13 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/gelamour/blog.git/">Home</a></li><!--
+       --><li><a href="/blog/">Home</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">About</a></li><!--
+       --><li><a href="/blog/">About</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">Writing</a></li><!--
+       --><li><a href="/blog/">Writing</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">Projects</a></li><!--
+       --><li><a href="/blog/">Projects</a></li><!--
      -->
       </ul>
     </span>
@@ -77,10 +77,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/gelamour/blog.git/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/blog/2022/11/14/vue%E4%BC%98%E5%8C%96%E9%A6%96%E9%A1%B5%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/gelamour/blog.git/2022/10/12/windows%E7%8E%AF%E5%A2%83%E4%B8%8Bnginx%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/blog/2022/10/12/windows%E7%8E%AF%E5%A2%83%E4%B8%8Bnginx%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -93,17 +93,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&text=ngrok搭建内网穿透服务"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&is_video=false&description=ngrok搭建内网穿透服务"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ngrok搭建内网穿透服务&body=Check out this article: https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&name=ngrok搭建内网穿透服务&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&t=ngrok搭建内网穿透服务"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&text=ngrok搭建内网穿透服务"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&is_video=false&description=ngrok搭建内网穿透服务"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ngrok搭建内网穿透服务&body=Check out this article: https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&name=ngrok搭建内网穿透服务&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&t=ngrok搭建内网穿透服务"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -149,7 +149,7 @@
   <div class="content" itemprop="articleBody">
     <h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>项目中需要集成微信登陆,使用网页来调用微信的接口获取用户的code时,需要保持接口参数中的回调地址与后台配置的回调地址一致,为了开发方便,回调地址直接就是本地的开发环境,使用ngrok搭建内网穿透,使外网直接访问本地服务</p>
 <h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p><a target="_blank" rel="noopener" href="https://ngrok.com/download">ngrok下载地址</a><br>由于本地开发环境是Windows,所以直接下载windows平台的包就OK,下载完成之后,解压打开文件夹</p>
-<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>运行文件夹下的ngrok.exe,打开之后就是一个cmd的黑窗口,首先我们需要去<a target="_blank" rel="noopener" href="https://ngrok.com/">官网</a>注册一个账号获取authtoken<br><img src="/gelamour/blog.git/../pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png" alt="image-20221018172343067"><br>这个就是我们的authtoken,返回黑窗口输入</p>
+<h3 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h3><p>运行文件夹下的ngrok.exe,打开之后就是一个cmd的黑窗口,首先我们需要去<a target="_blank" rel="noopener" href="https://ngrok.com/">官网</a>注册一个账号获取authtoken<br><img src="/blog/../pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172343067.png" alt="image-20221018172343067"><br>这个就是我们的authtoken,返回黑窗口输入</p>
 <blockquote>
 <p>ngrok authtoken 你的authToken</p>
 </blockquote>
@@ -158,7 +158,7 @@
 <p>ngrok http 80</p>
 </blockquote>
 <p>这条命令就表示在80端口给你搭建了一个内网穿透的服务,端口可以修改为其他,避免与其他进程你产生冲突</p>
-<p><img src="/gelamour/blog.git/../pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172737998.png" alt="image-20221018172737998"></p>
+<p><img src="/blog/../pic/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/image-20221018172737998.png" alt="image-20221018172737998"></p>
 <p>等待一会这个服务就搭建成功了,如上图就能看到外网能够访问的URL,将其输入到浏览器,就可以访问到本地服务了,是不是很简单</p>
 <p>总结:这个工具配置还是很简单的,之前搭建博客使用natapp搭建内网穿透可以选择不同的隧道,购买带宽啥的,还可以配置固定的域名,但是这个工具免费呀,虽然每次起服务URL就不同了,进行简单的开发,我觉得还是够用了,等项目开发完成，再将微信的回调地址修改为固定的,所以还是满足现阶段的开发的</p>
 
@@ -174,13 +174,13 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/gelamour/blog.git/">Home</a></li>
+          <li><a href="/blog/">Home</a></li>
          
-          <li><a href="/gelamour/blog.git/">About</a></li>
+          <li><a href="/blog/">About</a></li>
          
-          <li><a href="/gelamour/blog.git/">Writing</a></li>
+          <li><a href="/blog/">Writing</a></li>
          
-          <li><a href="/gelamour/blog.git/">Projects</a></li>
+          <li><a href="/blog/">Projects</a></li>
         
       </ul>
     </div>
@@ -191,17 +191,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&text=ngrok搭建内网穿透服务"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&is_video=false&description=ngrok搭建内网穿透服务"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ngrok搭建内网穿透服务&body=Check out this article: https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&name=ngrok搭建内网穿透服务&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/gelamour/blog.git/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&t=ngrok搭建内网穿透服务"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&text=ngrok搭建内网穿透服务"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&is_video=false&description=ngrok搭建内网穿透服务"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ngrok搭建内网穿透服务&body=Check out this article: https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&title=ngrok搭建内网穿透服务"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&name=ngrok搭建内网穿透服务&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gelamour.github.io/blog/2022/10/18/ngrok%E6%90%AD%E5%BB%BA%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%9C%8D%E5%8A%A1/&t=ngrok搭建内网穿透服务"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -229,13 +229,13 @@
     <nav>
       <ul>
         <!--
-       --><li><a href="/gelamour/blog.git/">Home</a></li><!--
+       --><li><a href="/blog/">Home</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">About</a></li><!--
+       --><li><a href="/blog/">About</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">Writing</a></li><!--
+       --><li><a href="/blog/">Writing</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">Projects</a></li><!--
+       --><li><a href="/blog/">Projects</a></li><!--
      -->
       </ul>
     </nav>
@@ -283,7 +283,7 @@
   </script>
 
 
-<script src="/gelamour/blog.git/js/main.js"></script>
+<script src="/blog/js/main.js"></script>
 
 <!-- search -->
 
@@ -299,5 +299,5 @@
 
 <!-- utterances Comments -->
 
-<script src="/gelamour/blog.git/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/gelamour/blog.git/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
+<script src="/blog/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/blog/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
 </html>

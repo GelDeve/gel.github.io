@@ -9,37 +9,37 @@
     <meta name="description" content="起因:项目中使用到ftp文件上传的功能,文件上传到服务器中,需要将ftp服务部署至服务器上,客户端才能够正确访问到服务器上。 概念:FTP(File Transfer Protocol)：是应用层的一个文件传输协议 。主要作用是在服务器和客户端之间实现文件的传输和共享。FTP协议运行在TCP连接上，保证了文件传输的可靠性。在传输时，传输双方的操作系统、磁盘文件系统类型可以不同。  什么是ftp中的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FTP服务器部署">
-<meta property="og:url" content="https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:url" content="https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="record code">
 <meta property="og:description" content="起因:项目中使用到ftp文件上传的功能,文件上传到服务器中,需要将ftp服务部署至服务器上,客户端才能够正确访问到服务器上。 概念:FTP(File Transfer Protocol)：是应用层的一个文件传输协议 。主要作用是在服务器和客户端之间实现文件的传输和共享。FTP协议运行在TCP连接上，保证了文件传输的可靠性。在传输时，传输双方的操作系统、磁盘文件系统类型可以不同。  什么是ftp中的">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/gelamour/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112512742.png">
-<meta property="og:image" content="https://github.com/gelamour/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112924669.png">
-<meta property="og:image" content="https://github.com/gelamour/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113033763.png">
-<meta property="og:image" content="https://github.com/gelamour/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113134763.png">
-<meta property="og:image" content="https://github.com/gelamour/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113411281.png">
-<meta property="og:image" content="https://github.com/gelamour/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719114730608.png">
-<meta property="og:image" content="https://github.com/gelamour/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719114952799.png">
+<meta property="og:image" content="https://gelamour.github.io/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112512742.png">
+<meta property="og:image" content="https://gelamour.github.io/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112924669.png">
+<meta property="og:image" content="https://gelamour.github.io/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113033763.png">
+<meta property="og:image" content="https://gelamour.github.io/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113134763.png">
+<meta property="og:image" content="https://gelamour.github.io/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113411281.png">
+<meta property="og:image" content="https://gelamour.github.io/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719114730608.png">
+<meta property="og:image" content="https://gelamour.github.io/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719114952799.png">
 <meta property="article:published_time" content="2023-07-19T03:04:01.000Z">
 <meta property="article:modified_time" content="2023-07-19T03:54:37.008Z">
 <meta property="article:author" content="阿志">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/gelamour/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112512742.png">
+<meta name="twitter:image" content="https://gelamour.github.io/pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112512742.png">
     
     
       
         
-          <link rel="shortcut icon" href="/gelamour/blog.git/images/favicon.ico">
+          <link rel="shortcut icon" href="/blog/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/gelamour/blog.git/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/blog/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/gelamour/blog.git/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon.png">
         
       
     
@@ -47,7 +47,7 @@
     <title>FTP服务器部署</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/gelamour/blog.git/css/style.css">
+<link rel="stylesheet" href="/blog/css/style.css">
 
     <!-- persian styles -->
     
@@ -68,13 +68,13 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/gelamour/blog.git/">Home</a></li><!--
+       --><li><a href="/blog/">Home</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">About</a></li><!--
+       --><li><a href="/blog/">About</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">Writing</a></li><!--
+       --><li><a href="/blog/">Writing</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">Projects</a></li><!--
+       --><li><a href="/blog/">Projects</a></li><!--
      -->
       </ul>
     </span>
@@ -82,10 +82,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/gelamour/blog.git/2024/01/17/git/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/blog/2024/01/17/git/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/gelamour/blog.git/2023/07/03/%E5%88%9D%E8%AF%86docker/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/blog/2023/07/03/%E5%88%9D%E8%AF%86docker/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -98,17 +98,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&text=FTP服务器部署"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&is_video=false&description=FTP服务器部署"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=FTP服务器部署&body=Check out this article: https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&name=FTP服务器部署&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&t=FTP服务器部署"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&text=FTP服务器部署"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&is_video=false&description=FTP服务器部署"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=FTP服务器部署&body=Check out this article: https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&name=FTP服务器部署&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&t=FTP服务器部署"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -162,32 +162,32 @@
 <h4 id="部署"><a href="#部署" class="headerlink" title="部署:"></a>部署:</h4><blockquote>
 <p>服务器系统为windows Server,最初使用iis服务器上建立ftp站点进行对外提供ftp服务,但是会出现在服务器上使用内网ip能够正常访问,使用外网ip访问能够正常连接服务器但是不能够正常访问文件夹,会报无权限的报警提示,后怀疑是nat路由转发导致端口不通，将iis部署的ftp站点停止服务后,在ftp使用的端口上起了web服务,在外网中进行访问是能够正常访问的,看到服务器上有phpstudy的集成环境中也有ftp服务,就启动集成环境中的ftp服务,环境中使用的是fileilla,进行一通配置也是正常访问成功了!</p>
 </blockquote>
-<p><img src="/gelamour/blog.git/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112512742.png" alt="image-20230719112512742"></p>
+<p><img src="/blog/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112512742.png" alt="image-20230719112512742"></p>
 <blockquote>
 <p>进入fileilla首页这里port是fileilla的运行端口不是实际部署ftp服务的端口</p>
 </blockquote>
-<p><img src="/gelamour/blog.git/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112924669.png" alt="image-20230719112924669"></p>
+<p><img src="/blog/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719112924669.png" alt="image-20230719112924669"></p>
 <blockquote>
 <p>这里创建一个用户访问ftp传输的文件夹</p>
 </blockquote>
-<p><img src="/gelamour/blog.git/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113033763.png" alt="image-20230719113033763"></p>
+<p><img src="/blog/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113033763.png" alt="image-20230719113033763"></p>
 <blockquote>
 <p>这里指定访问的文件夹将其权限分配给刚刚创建的用户</p>
 </blockquote>
-<p><img src="/gelamour/blog.git/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113134763.png" alt="image-20230719113134763"></p>
+<p><img src="/blog/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113134763.png" alt="image-20230719113134763"></p>
 <blockquote>
 <p>Listen on Port：监听端口，其实就是FTP服务器的连接端口。<br>Max.Number of users：允许最大并发连接客户端的数量。<br>Number of Threads：处理线程。也就是CPU优先级别。数值调得越大优先级越高，一般默认即可。 </p>
 </blockquote>
-<p><img src="/gelamour/blog.git/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113411281.png" alt="image-20230719113411281"></p>
+<p><img src="/blog/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719113411281.png" alt="image-20230719113411281"></p>
 <blockquote>
 <p>Passive mode settings（被动传输模式设置）：这个页面要重点关注。如果服务器本身直接拥有公网IP，可以选软件默认的“Default”。<br>倘若服务器是在局域网里面，在一个网关后面，那么就要选择第二项“Use the follwoing IP”，并且在下面的输入栏填写公网的IP地址；否则，客户端用PASV被动模式可能无法连接FTP服务器。因为服务器是在内网中，在客户端使用PASV 模式连接服务器的时候，服务器收到连接请求之后需要把自身的IP地址告诉客户端，由于服务器在内网中，它侦测到的IP地址是内网的（如 192.168.0.5），它把这个IP地址交给客户端，客户端自然无法连接。在这里设置了指定的IP地址后，服务器就会把这个公网合法的IP地址提交给客户端，这样才能正常建立连接。<br>如果服务器是动态IP的，那么可以选择下面的“Retrieve external IP address from”，利用FileZilla官方网站免费提供的IP查询页面获取当时的公网合法IP，然后服务器把这个公网合法IP地址提交给客户端。当然静态 IP也可以用这个，只不过没有必要。<br>这个设置页面对服务器位于内网的情况非常重要。有些FTP服务器端没有这个设置项目，客户端就只能用Port主动模式连接。当然有些客户端软件针对这个问题有专门的设置，如FlashFXP的站点设置中只要选中“被动模式使用站点IP”就可以了。<br>对于在局域网中的服务器，如果服务器没有置于DMZ区，那么强烈建议选中下面的“Use custom port range”定义PASV端口范围。由于PASV模式中，是服务器随机打开端口，然后把打开的端口号告诉客户端，让客户端连接打开的端口。但是因为服务器处于网关后面，如果网关那里没有做对应的端口映射，客户端从外网就无法连接服务器打开的端口，导致PASV模式连接失败。在这里限定服务器打开的端口范围，然后到连接外网的网关那里，对服务器的这些端口做端口映射（虚拟服务）。这需要服务器和Internet网关设备配合设置，这样外网的客户端才能用 PASV模式连接进来。 </p>
 <p><strong>这里注意由于服务器中只向外配置了两个端口，一个是连接控制端口61021，一个是数据传输端口61020,在nat路由转发也配置如上两个端口以及入站规则中也加上了这两个端口,使用61020端口进行转发,所以在该页面中,被动模式端口配置61020端口</strong></p>
 </blockquote>
-<h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><p><img src="/gelamour/blog.git/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719114730608.png" alt="image-20230719114730608"></p>
+<h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><p><img src="/blog/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719114730608.png" alt="image-20230719114730608"></p>
 <blockquote>
 <p>在文件管理器中输入<a href="ftp://ip地址:端口,紧接着弹出登录框,使用刚刚在服务器上配置的用户,成功登录之后就能够正常访问了，需要注意的是使用被动模式进行访问,windows上使用ftp被动模式需要在系统设置中设置">ftp://ip地址:端口,紧接着弹出登录框,使用刚刚在服务器上配置的用户,成功登录之后就能够正常访问了，需要注意的是使用被动模式进行访问,windows上使用ftp被动模式需要在系统设置中设置</a></p>
 </blockquote>
-<p><img src="/gelamour/blog.git/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719114952799.png" alt="image-20230719114952799"></p>
+<p><img src="/blog/../pic/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/image-20230719114952799.png" alt="image-20230719114952799"></p>
 <blockquote>
 <p>windows中ftp被动模式配置</p>
 </blockquote>
@@ -207,13 +207,13 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/gelamour/blog.git/">Home</a></li>
+          <li><a href="/blog/">Home</a></li>
          
-          <li><a href="/gelamour/blog.git/">About</a></li>
+          <li><a href="/blog/">About</a></li>
          
-          <li><a href="/gelamour/blog.git/">Writing</a></li>
+          <li><a href="/blog/">Writing</a></li>
          
-          <li><a href="/gelamour/blog.git/">Projects</a></li>
+          <li><a href="/blog/">Projects</a></li>
         
       </ul>
     </div>
@@ -224,17 +224,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&text=FTP服务器部署"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&is_video=false&description=FTP服务器部署"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=FTP服务器部署&body=Check out this article: https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&name=FTP服务器部署&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/gelamour/blog.git/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&t=FTP服务器部署"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&text=FTP服务器部署"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&is_video=false&description=FTP服务器部署"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=FTP服务器部署&body=Check out this article: https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&title=FTP服务器部署"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&name=FTP服务器部署&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://gelamour.github.io/blog/2023/07/19/FTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2/&t=FTP服务器部署"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -262,13 +262,13 @@
     <nav>
       <ul>
         <!--
-       --><li><a href="/gelamour/blog.git/">Home</a></li><!--
+       --><li><a href="/blog/">Home</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">About</a></li><!--
+       --><li><a href="/blog/">About</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">Writing</a></li><!--
+       --><li><a href="/blog/">Writing</a></li><!--
      --><!--
-       --><li><a href="/gelamour/blog.git/">Projects</a></li><!--
+       --><li><a href="/blog/">Projects</a></li><!--
      -->
       </ul>
     </nav>
@@ -316,7 +316,7 @@
   </script>
 
 
-<script src="/gelamour/blog.git/js/main.js"></script>
+<script src="/blog/js/main.js"></script>
 
 <!-- search -->
 
@@ -332,5 +332,5 @@
 
 <!-- utterances Comments -->
 
-<script src="/gelamour/blog.git/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/gelamour/blog.git/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
+<script src="/blog/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/blog/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
 </html>
