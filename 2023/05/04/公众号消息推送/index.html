@@ -9,7 +9,7 @@
     <meta name="description" content="起因监控系统需要听过微信公众号进行推送报警,以此来通知用户设备的运行以及报警情况,之前实现过微信支付的效果,所以还是先写一个推送消息的demo来实现推送信息的模块,看github上有serve酱和虾推啥的开源项目,需要部署项目,调用接口来达到推送信息的效果,总感觉消息中转了别人的服务器不安全,还是自己去实现把，大致的实现效果参考虾推啥,先拿到用户的openid,通过调用接口拿到传入的参数,将参数作">
 <meta property="og:type" content="article">
 <meta property="og:title" content="公众号消息推送">
-<meta property="og:url" content="https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/index.html">
+<meta property="og:url" content="https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/index.html">
 <meta property="og:site_name" content="record code">
 <meta property="og:description" content="起因监控系统需要听过微信公众号进行推送报警,以此来通知用户设备的运行以及报警情况,之前实现过微信支付的效果,所以还是先写一个推送消息的demo来实现推送信息的模块,看github上有serve酱和虾推啥的开源项目,需要部署项目,调用接口来达到推送信息的效果,总感觉消息中转了别人的服务器不安全,还是自己去实现把，大致的实现效果参考虾推啥,先拿到用户的openid,通过调用接口拿到传入的参数,将参数作">
 <meta property="og:locale" content="en_US">
@@ -21,17 +21,17 @@
     
       
         
-          <link rel="shortcut icon" href="/images/favicon.ico">
+          <link rel="shortcut icon" href="/GelDeve/gel.github.io.git/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/GelDeve/gel.github.io.git/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/GelDeve/gel.github.io.git/images/apple-touch-icon.png">
         
       
     
@@ -39,7 +39,7 @@
     <title>公众号消息推送</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/GelDeve/gel.github.io.git/css/style.css">
 
     <!-- persian styles -->
     
@@ -60,13 +60,13 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/">Home</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Home</a></li><!--
      --><!--
-       --><li><a href="/">About</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">About</a></li><!--
      --><!--
-       --><li><a href="/">Writing</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Writing</a></li><!--
      --><!--
-       --><li><a href="/">Projects</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Projects</a></li><!--
      -->
       </ul>
     </span>
@@ -74,10 +74,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/GelDeve/gel.github.io.git/2023/06/10/vite-ts-nginx%E5%A4%9A%E7%BA%A7%E8%B7%AF%E5%BE%84%E9%83%A8%E7%BD%B2/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -90,17 +90,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&text=公众号消息推送"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&is_video=false&description=公众号消息推送"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=公众号消息推送&body=Check out this article: https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&name=公众号消息推送&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&t=公众号消息推送"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&text=公众号消息推送"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&is_video=false&description=公众号消息推送"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=公众号消息推送&body=Check out this article: https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&name=公众号消息推送&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&t=公众号消息推送"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -170,13 +170,13 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/">Home</a></li>
+          <li><a href="/GelDeve/gel.github.io.git/">Home</a></li>
          
-          <li><a href="/">About</a></li>
+          <li><a href="/GelDeve/gel.github.io.git/">About</a></li>
          
-          <li><a href="/">Writing</a></li>
+          <li><a href="/GelDeve/gel.github.io.git/">Writing</a></li>
          
-          <li><a href="/">Projects</a></li>
+          <li><a href="/GelDeve/gel.github.io.git/">Projects</a></li>
         
       </ul>
     </div>
@@ -187,17 +187,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&text=公众号消息推送"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&is_video=false&description=公众号消息推送"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=公众号消息推送&body=Check out this article: https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&name=公众号消息推送&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&t=公众号消息推送"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&text=公众号消息推送"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&is_video=false&description=公众号消息推送"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=公众号消息推送&body=Check out this article: https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&title=公众号消息推送"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&name=公众号消息推送&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/&t=公众号消息推送"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -218,20 +218,20 @@
     Copyright &copy;
     
     
-    2021-2023
+    2021-2024
     阿志
   </div>
   <div class="footer-right">
     <nav>
       <ul>
         <!--
-       --><li><a href="/">Home</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Home</a></li><!--
      --><!--
-       --><li><a href="/">About</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">About</a></li><!--
      --><!--
-       --><li><a href="/">Writing</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Writing</a></li><!--
      --><!--
-       --><li><a href="/">Projects</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Projects</a></li><!--
      -->
       </ul>
     </nav>
@@ -279,7 +279,7 @@
   </script>
 
 
-<script src="/js/main.js"></script>
+<script src="/GelDeve/gel.github.io.git/js/main.js"></script>
 
 <!-- search -->
 
@@ -295,5 +295,5 @@
 
 <!-- utterances Comments -->
 
-<script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
+<script src="/GelDeve/gel.github.io.git/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/GelDeve/gel.github.io.git/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
 </html>

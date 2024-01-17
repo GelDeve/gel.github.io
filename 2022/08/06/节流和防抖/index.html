@@ -9,7 +9,7 @@
     <meta name="description" content="防抖（Debounce）和节流（Throttle）都是用来控制某个函数在一定时间内触发次数，两者都是为了减少触发频率，以便提高性能以及避免资源浪费 节流是第一个说了算，后续都会被节流阀屏蔽掉，防抖是最后一个说了算，前面启用的都会被清除 本质上都是减少触发次数，提高性能 12345678910111213141516171819202122232425262728293031323334353637">
 <meta property="og:type" content="article">
 <meta property="og:title" content="节流和防抖">
-<meta property="og:url" content="https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/index.html">
+<meta property="og:url" content="https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/index.html">
 <meta property="og:site_name" content="record code">
 <meta property="og:description" content="防抖（Debounce）和节流（Throttle）都是用来控制某个函数在一定时间内触发次数，两者都是为了减少触发频率，以便提高性能以及避免资源浪费 节流是第一个说了算，后续都会被节流阀屏蔽掉，防抖是最后一个说了算，前面启用的都会被清除 本质上都是减少触发次数，提高性能 12345678910111213141516171819202122232425262728293031323334353637">
 <meta property="og:locale" content="en_US">
@@ -21,17 +21,17 @@
     
       
         
-          <link rel="shortcut icon" href="/images/favicon.ico">
+          <link rel="shortcut icon" href="/GelDeve/gel.github.io.git/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/GelDeve/gel.github.io.git/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/GelDeve/gel.github.io.git/images/apple-touch-icon.png">
         
       
     
@@ -39,7 +39,7 @@
     <title>节流和防抖</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/GelDeve/gel.github.io.git/css/style.css">
 
     <!-- persian styles -->
     
@@ -60,13 +60,13 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/">Home</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Home</a></li><!--
      --><!--
-       --><li><a href="/">About</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">About</a></li><!--
      --><!--
-       --><li><a href="/">Writing</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Writing</a></li><!--
      --><!--
-       --><li><a href="/">Projects</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Projects</a></li><!--
      -->
       </ul>
     </span>
@@ -74,10 +74,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/2022/08/09/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E7%9F%A2%E9%87%8F%E5%BA%93%E4%BD%BF%E7%94%A8/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/GelDeve/gel.github.io.git/2022/08/09/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E7%9F%A2%E9%87%8F%E5%BA%93%E4%BD%BF%E7%94%A8/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -90,17 +90,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&text=节流和防抖"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&is_video=false&description=节流和防抖"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=节流和防抖&body=Check out this article: https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&name=节流和防抖&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&t=节流和防抖"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&text=节流和防抖"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&is_video=false&description=节流和防抖"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=节流和防抖&body=Check out this article: https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&name=节流和防抖&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&t=节流和防抖"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -160,13 +160,13 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/">Home</a></li>
+          <li><a href="/GelDeve/gel.github.io.git/">Home</a></li>
          
-          <li><a href="/">About</a></li>
+          <li><a href="/GelDeve/gel.github.io.git/">About</a></li>
          
-          <li><a href="/">Writing</a></li>
+          <li><a href="/GelDeve/gel.github.io.git/">Writing</a></li>
          
-          <li><a href="/">Projects</a></li>
+          <li><a href="/GelDeve/gel.github.io.git/">Projects</a></li>
         
       </ul>
     </div>
@@ -177,17 +177,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&text=节流和防抖"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&is_video=false&description=节流和防抖"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=节流和防抖&body=Check out this article: https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&name=节流和防抖&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://round666.github.io/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&t=节流和防抖"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&text=节流和防抖"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&is_video=false&description=节流和防抖"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=节流和防抖&body=Check out this article: https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&title=节流和防抖"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&name=节流和防抖&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/&t=节流和防抖"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -208,20 +208,20 @@
     Copyright &copy;
     
     
-    2021-2023
+    2021-2024
     阿志
   </div>
   <div class="footer-right">
     <nav>
       <ul>
         <!--
-       --><li><a href="/">Home</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Home</a></li><!--
      --><!--
-       --><li><a href="/">About</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">About</a></li><!--
      --><!--
-       --><li><a href="/">Writing</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Writing</a></li><!--
      --><!--
-       --><li><a href="/">Projects</a></li><!--
+       --><li><a href="/GelDeve/gel.github.io.git/">Projects</a></li><!--
      -->
       </ul>
     </nav>
@@ -269,7 +269,7 @@
   </script>
 
 
-<script src="/js/main.js"></script>
+<script src="/GelDeve/gel.github.io.git/js/main.js"></script>
 
 <!-- search -->
 
@@ -285,5 +285,5 @@
 
 <!-- utterances Comments -->
 
-<script src="/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
+<script src="/GelDeve/gel.github.io.git/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/GelDeve/gel.github.io.git/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
 </html>
