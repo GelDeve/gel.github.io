@@ -9,7 +9,7 @@
     <meta name="description" content="准备2023年后回来第一篇博客,好久没有更新了,年后回来跟进公司的项目都是基本都是拿c#写的,前端方面也是修修补补之前的程序,也没有学习什么新的东西,不进则退,这段时间前端又更新好多东西了,看vue官网也是宣布了vue2在今年要停止维护了,所以需要开始学习vue3了,vue3又是对ts支持度比较友好的,最近要要写一个微信推送的程序,准备以node+ts的方式先熟悉一下ts的开发方式,也是摸索了一天">
 <meta property="og:type" content="article">
 <meta property="og:title" content="express+ts代码热更新">
-<meta property="og:url" content="https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/index.html">
+<meta property="og:url" content="https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/index.html">
 <meta property="og:site_name" content="record code">
 <meta property="og:description" content="准备2023年后回来第一篇博客,好久没有更新了,年后回来跟进公司的项目都是基本都是拿c#写的,前端方面也是修修补补之前的程序,也没有学习什么新的东西,不进则退,这段时间前端又更新好多东西了,看vue官网也是宣布了vue2在今年要停止维护了,所以需要开始学习vue3了,vue3又是对ts支持度比较友好的,最近要要写一个微信推送的程序,准备以node+ts的方式先熟悉一下ts的开发方式,也是摸索了一天">
 <meta property="og:locale" content="en_US">
@@ -21,17 +21,17 @@
     
       
         
-          <link rel="shortcut icon" href="/GelDeve/gel.github.io.git/images/favicon.ico">
+          <link rel="shortcut icon" href="/gelamour/blog.git/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/GelDeve/gel.github.io.git/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/gelamour/blog.git/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/GelDeve/gel.github.io.git/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/gelamour/blog.git/images/apple-touch-icon.png">
         
       
     
@@ -39,7 +39,7 @@
     <title>express+ts代码热更新</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/GelDeve/gel.github.io.git/css/style.css">
+<link rel="stylesheet" href="/gelamour/blog.git/css/style.css">
 
     <!-- persian styles -->
     
@@ -60,13 +60,13 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Home</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Home</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">About</a></li><!--
+       --><li><a href="/gelamour/blog.git/">About</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Writing</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Writing</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Projects</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Projects</a></li><!--
      -->
       </ul>
     </span>
@@ -74,10 +74,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/GelDeve/gel.github.io.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/gelamour/blog.git/2023/05/04/%E5%85%AC%E4%BC%97%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A8%E9%80%81/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/GelDeve/gel.github.io.git/2023/01/28/git%E4%BD%BF%E7%94%A8/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/gelamour/blog.git/2023/01/28/git%E4%BD%BF%E7%94%A8/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -90,17 +90,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&text=express+ts代码热更新"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&is_video=false&description=express+ts代码热更新"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=express+ts代码热更新&body=Check out this article: https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&name=express+ts代码热更新&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&t=express+ts代码热更新"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&text=express+ts代码热更新"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&is_video=false&description=express+ts代码热更新"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=express+ts代码热更新&body=Check out this article: https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&name=express+ts代码热更新&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&t=express+ts代码热更新"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -167,13 +167,13 @@
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/GelDeve/gel.github.io.git/">Home</a></li>
+          <li><a href="/gelamour/blog.git/">Home</a></li>
          
-          <li><a href="/GelDeve/gel.github.io.git/">About</a></li>
+          <li><a href="/gelamour/blog.git/">About</a></li>
          
-          <li><a href="/GelDeve/gel.github.io.git/">Writing</a></li>
+          <li><a href="/gelamour/blog.git/">Writing</a></li>
          
-          <li><a href="/GelDeve/gel.github.io.git/">Projects</a></li>
+          <li><a href="/gelamour/blog.git/">Projects</a></li>
         
       </ul>
     </div>
@@ -184,17 +184,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&text=express+ts代码热更新"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&is_video=false&description=express+ts代码热更新"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=express+ts代码热更新&body=Check out this article: https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&name=express+ts代码热更新&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/GelDeve/gel.github.io.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&t=express+ts代码热更新"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&text=express+ts代码热更新"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&is_video=false&description=express+ts代码热更新"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=express+ts代码热更新&body=Check out this article: https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&title=express+ts代码热更新"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&name=express+ts代码热更新&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/gelamour/blog.git/2023/04/21/express-ts%E4%BB%A3%E7%A0%81%E7%83%AD%E6%9B%B4%E6%96%B0/&t=express+ts代码热更新"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -222,13 +222,13 @@
     <nav>
       <ul>
         <!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Home</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Home</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">About</a></li><!--
+       --><li><a href="/gelamour/blog.git/">About</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Writing</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Writing</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Projects</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Projects</a></li><!--
      -->
       </ul>
     </nav>
@@ -276,7 +276,7 @@
   </script>
 
 
-<script src="/GelDeve/gel.github.io.git/js/main.js"></script>
+<script src="/gelamour/blog.git/js/main.js"></script>
 
 <!-- search -->
 
@@ -292,5 +292,5 @@
 
 <!-- utterances Comments -->
 
-<script src="/GelDeve/gel.github.io.git/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/GelDeve/gel.github.io.git/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
+<script src="/gelamour/blog.git/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/gelamour/blog.git/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
 </html>

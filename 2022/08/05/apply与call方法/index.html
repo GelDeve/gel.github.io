@@ -9,7 +9,7 @@
     <meta name="description" content="**学习节流防抖之前看到网上的事例涉及到了apply和call方法,这两个方法之前在书上学习的时候也没有弄的很明白,在这里做了如下笔记学习这两种方法 ** 主要解决以下问题   apply call 概念 apply call 区别   apply: 方法能劫持另外一个对象的方法，继承另外一个对象的属性. call: 和apply方法是类似的,传递参数列表不同,apply传递数组形式,call传递">
 <meta property="og:type" content="article">
 <meta property="og:title" content="apply与call方法">
-<meta property="og:url" content="https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:url" content="https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="record code">
 <meta property="og:description" content="**学习节流防抖之前看到网上的事例涉及到了apply和call方法,这两个方法之前在书上学习的时候也没有弄的很明白,在这里做了如下笔记学习这两种方法 ** 主要解决以下问题   apply call 概念 apply call 区别   apply: 方法能劫持另外一个对象的方法，继承另外一个对象的属性. call: 和apply方法是类似的,传递参数列表不同,apply传递数组形式,call传递">
 <meta property="og:locale" content="en_US">
@@ -21,17 +21,17 @@
     
       
         
-          <link rel="shortcut icon" href="/GelDeve/gel.github.io.git/images/favicon.ico">
+          <link rel="shortcut icon" href="/gelamour/blog.git/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="/GelDeve/gel.github.io.git/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/gelamour/blog.git/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="/GelDeve/gel.github.io.git/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/gelamour/blog.git/images/apple-touch-icon.png">
         
       
     
@@ -39,7 +39,7 @@
     <title>apply与call方法</title>
     <!-- styles -->
     
-<link rel="stylesheet" href="/GelDeve/gel.github.io.git/css/style.css">
+<link rel="stylesheet" href="/gelamour/blog.git/css/style.css">
 
     <!-- persian styles -->
     
@@ -60,13 +60,13 @@
     <span id="nav">
       <ul>
         <!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Home</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Home</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">About</a></li><!--
+       --><li><a href="/gelamour/blog.git/">About</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Writing</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Writing</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Projects</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Projects</a></li><!--
      -->
       </ul>
     </span>
@@ -74,10 +74,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" aria-label="Previous post" href="/GelDeve/gel.github.io.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/gelamour/blog.git/2022/08/06/%E8%8A%82%E6%B5%81%E5%92%8C%E9%98%B2%E6%8A%96/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/GelDeve/gel.github.io.git/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/gelamour/blog.git/2022/07/30/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -90,17 +90,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&text=apply与call方法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&is_video=false&description=apply与call方法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=apply与call方法&body=Check out this article: https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&name=apply与call方法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&t=apply与call方法"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&text=apply与call方法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&is_video=false&description=apply与call方法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=apply与call方法&body=Check out this article: https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&name=apply与call方法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&t=apply与call方法"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -177,13 +177,13 @@ call: 和apply方法是类似的,传递参数列表不同,apply传递数组形�
     <div id="nav-footer" style="display: none">
       <ul>
          
-          <li><a href="/GelDeve/gel.github.io.git/">Home</a></li>
+          <li><a href="/gelamour/blog.git/">Home</a></li>
          
-          <li><a href="/GelDeve/gel.github.io.git/">About</a></li>
+          <li><a href="/gelamour/blog.git/">About</a></li>
          
-          <li><a href="/GelDeve/gel.github.io.git/">Writing</a></li>
+          <li><a href="/gelamour/blog.git/">Writing</a></li>
          
-          <li><a href="/GelDeve/gel.github.io.git/">Projects</a></li>
+          <li><a href="/gelamour/blog.git/">Projects</a></li>
         
       </ul>
     </div>
@@ -194,17 +194,17 @@ call: 和apply方法是类似的,传递参数列表不同,apply传递数组形�
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&text=apply与call方法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&is_video=false&description=apply与call方法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=apply与call方法&body=Check out this article: https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&name=apply与call方法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/GelDeve/gel.github.io.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&t=apply与call方法"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&text=apply与call方法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&is_video=false&description=apply与call方法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=apply与call方法&body=Check out this article: https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&title=apply与call方法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&name=apply与call方法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://github.com/gelamour/blog.git/2022/08/05/apply%E4%B8%8Ecall%E6%96%B9%E6%B3%95/&t=apply与call方法"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -232,13 +232,13 @@ call: 和apply方法是类似的,传递参数列表不同,apply传递数组形�
     <nav>
       <ul>
         <!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Home</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Home</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">About</a></li><!--
+       --><li><a href="/gelamour/blog.git/">About</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Writing</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Writing</a></li><!--
      --><!--
-       --><li><a href="/GelDeve/gel.github.io.git/">Projects</a></li><!--
+       --><li><a href="/gelamour/blog.git/">Projects</a></li><!--
      -->
       </ul>
     </nav>
@@ -286,7 +286,7 @@ call: 和apply方法是类似的,传递参数列表不同,apply传递数组形�
   </script>
 
 
-<script src="/GelDeve/gel.github.io.git/js/main.js"></script>
+<script src="/gelamour/blog.git/js/main.js"></script>
 
 <!-- search -->
 
@@ -302,5 +302,5 @@ call: 和apply方法是类似的,传递参数列表不同,apply传递数组形�
 
 <!-- utterances Comments -->
 
-<script src="/GelDeve/gel.github.io.git/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/GelDeve/gel.github.io.git/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
+<script src="/gelamour/blog.git/live2d_models/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/gelamour/blog.git/live2d_models/assets/assets/hijiki.model.json"},"display":{"position":"left","width":250,"height":300},"mobile":{"show":false}});</script></body>
 </html>
